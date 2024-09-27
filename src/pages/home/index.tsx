@@ -1,9 +1,14 @@
 import React from "react"
 import styled from "@emotion/styled"
 import { useState, useEffect } from "react"
+import { Clock } from "../../components/Widgets/Clock"
+import { Calendar } from "../../components/Widgets/Calendar"
+import { Button } from "@chakra-ui/react"
+import { usePosition } from "../../provider/PositionContext"
 
 const HomePage = () => {
   const [currentTime, setCurrentTime] = useState("")
+  const { savePositions } = usePosition()
 
   useEffect(() => {
     const updateTime = () => {
@@ -26,8 +31,10 @@ const HomePage = () => {
   return (
     <Wrapper>
       <Icon className="material-icons">settings</Icon>
-
       <TimeDisplay>{currentTime}</TimeDisplay>
+      <Clock />
+      <Calendar />
+      <SaveButton onClick={savePositions}>save</SaveButton>
     </Wrapper>
   )
 }
@@ -60,4 +67,13 @@ const TimeDisplay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`
+
+const SaveButton = styled(Button)`
+  width: 50%;
+  height: 10%;
+  font-size: 20px;
+  color: black;
+  margin-bottom: 10px;
+  display: flex;
 `
