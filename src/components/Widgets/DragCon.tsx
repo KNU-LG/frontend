@@ -62,4 +62,8 @@ const Wrapper = styled(animated.div)<WrapperProps>`
   height: ${(props) => props.widgetHeight}px;
   left: 10vw;
   top: 0;
+  border: 1px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
