@@ -73,7 +73,9 @@ const SaveButton = styled(Button)`
   width: 50%;
   height: 10%;
   font-size: 20px;
-  color: black;
+  color: white;
+  border: 1px solid white;
   margin-bottom: 10px;
   display: flex;
+  background-color: gray;
 `
