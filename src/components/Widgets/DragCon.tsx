@@ -12,8 +12,8 @@ interface DragConProps {
 }
 
 interface WrapperProps {
-  widgetWidth: number
-  widgetHeight: number
+  width: number
+  height: number
 }
 
 export const DragCon = (dragprops: DragConProps) => {
@@ -49,7 +49,12 @@ export const DragCon = (dragprops: DragConProps) => {
   )
 
   return (
-    <Wrapper {...bindPos()} style={props} widgetWidth={dragprops.widgetWidth} widgetHeight={dragprops.widgetHeight}>
+    <Wrapper
+      {...bindPos()}
+      style={props}
+      width={dragprops.widgetWidth} // styled 컴포넌트 내부에서 사용
+      height={dragprops.widgetHeight} // styled 컴포넌트 내부에서 사용
+    >
       {dragprops.children}
     </Wrapper>
   )
@@ -58,8 +63,8 @@ export const DragCon = (dragprops: DragConProps) => {
 const Wrapper = styled(animated.div)<WrapperProps>`
   font-size: 12px;
   position: fixed;
-  width: ${(props) => props.widgetWidth}px;
-  height: ${(props) => props.widgetHeight}px;
+  width: ${(props) => props.width}px;
+  height: ${(props) => props.height}px;
   left: 10vw;
   top: 0;
   border: 1px solid white;
