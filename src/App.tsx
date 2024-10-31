@@ -1,10 +1,10 @@
-import HomePage from "./pages/home"
 import { PositionProvider } from "./provider/PositionContext"
+import Routes from "./routes"
 
 const App = () => {
   return (
     <PositionProvider>
-      <HomePage />
+      <Routes />
     </PositionProvider>
   )
 }
