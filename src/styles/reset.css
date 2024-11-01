@@ -3,7 +3,9 @@
   max-height: 100vh;
   height: 100%;
   margin: 0 auto;
+  box-sizing: border-box; 
+}
+
+body{
   background-color: black;
-  box-sizing: border-box; /* 패딩과 보더를 max-width에 포함 */
-  color: white;
 }
