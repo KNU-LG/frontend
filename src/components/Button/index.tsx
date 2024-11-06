@@ -1,6 +1,5 @@
-import React from "react"
-import styled from "@emotion/styled"
 import { css } from "@emotion/react"
+import styled from "@emotion/styled"
 
 type Color = "red" | "white" | "black"
 type Size = "small" | "big"
