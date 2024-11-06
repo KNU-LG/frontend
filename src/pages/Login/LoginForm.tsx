@@ -1,12 +1,70 @@
-import React, { useState } from "react"
 import styled from "@emotion/styled"
+import { useForm } from "react-hook-form"
+import { usePostLogin } from "../../api/usePostLogin"
 import CustomButton from "../../components/Button"
+import { Login } from "../../types"
+
+const LoginForm = () => {
+  const { mutate, status } = usePostLogin()
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Login>({
+    defaultValues: {
+      loginId: "",
+      password: "",
+    },
+    mode: "onSubmit",
+  })
+
+  const handleLogin = (data: Login) => {
+    mutate(data)
+  }
+
+  return (
+    <FormContainer>
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit(handleLogin)}>
+        <StyledInput
+          type="text"
+          placeholder="아이디"
+          {...register("loginId", { required: "아이디는 필수입니다." })}
+        />
+        {errors.loginId && <ErrorMessage>{errors.loginId.message}</ErrorMessage>}
+
+        <StyledInput
+          type="password"
+          placeholder="비밀번호"
+          {...register("password", { required: "비밀번호는 필수입니다." })}
+        />
+        {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
+
+        <CustomButton type="submit" color="black" size="big" disabled={status === "pending"}>
+          로그인
+        </CustomButton>
+        {status === "error" && (
+          <StatusMessage error>로그인 중 오류가 발생했습니다. 다시 시도해주세요.</StatusMessage>
+        )}
+
+        {status === "success" && <StatusMessage success>로그인이 완료되었습니다!</StatusMessage>}
+      </form>
+    </FormContainer>
+  )
+}
+
+export default LoginForm
 
 const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 300px;
+`
+const ErrorMessage = styled.span`
+  color: red;
+  font-size: 12px;
 `
 
 const StyledInput = styled.input`
@@ -17,59 +75,11 @@ const StyledInput = styled.input`
   border: 1px solid #ddd;
   border-radius: 20px;
   font-size: 14px;
+  color: black;
 `
-
-const LoginForm: React.FC = () => {
-  const [id, setId] = useState("")
-  const [password, setPassword] = useState("")
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    try {
-      const response = await fetch("?????", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: id,
-          password: password,
-        }),
-      })
-
-      if (response.ok) {
-        const data = await response.json()
-        console.log("로그인 성공")
-      } else {
-        console.log("로그인 실패")
-      }
-    } catch (error) {
-      console.error("Error:", error)
-    }
-  }
-
-  return (
-    <FormContainer>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <StyledInput
-          type="text"
-          placeholder="아이디"
-          value={id}
-          onChange={(e) => setId(e.target.value)}
-        />
-        <StyledInput
-          type="password"
-          placeholder="비밀번호"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <CustomButton color="black" size="big">
-          로그인
-        </CustomButton>
-      </form>
-    </FormContainer>
-  )
-}
-
-export default LoginForm
+const StatusMessage = styled.p<{ error?: boolean; success?: boolean }>`
+  margin-top: 16px;
+  font-size: 14px;
+  text-align: center;
+  color: ${(props) => (props.error ? "#ef4444" : props.success ? "#22c55e" : "gray")};
+`
