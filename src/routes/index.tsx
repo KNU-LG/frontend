@@ -1,5 +1,5 @@
 import { RouterPath } from "./path"
-import { createBrowserRouter, Outlet, RouterProvider, Navigate } from "react-router-dom"
+import { Outlet, RouterProvider, Navigate, createHashRouter } from "react-router-dom"
 import HomePage from "../pages/Home"
 import ImageSlides from "../pages/ImageSlides"
 import Images from "../pages/Images"
@@ -10,7 +10,7 @@ import MyPage from "../pages/MyPage"
 import SignUp from "../pages/SignUp"
 import { ProtectedRoute } from "./ProtectedRoute"
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: RouterPath.root,
     element: (
