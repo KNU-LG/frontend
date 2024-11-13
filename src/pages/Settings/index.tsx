@@ -1,24 +1,50 @@
 import styled from "@emotion/styled"
-import { Delete, Image, ImageAspectRatio, Light } from "@mui/icons-material"
+import { AddPhotoAlternate, Delete, Image, LightMode, Person, Widgets } from "@mui/icons-material"
 import HomeUI from "../Home/components/HomeUI"
+import { useNavigate } from "react-router-dom"
+import { RouterPath } from "../../routes/path"
+import { useColorMode } from "../../provider/ColorModeContext"
 
 const Settings = () => {
+  const navigate = useNavigate()
+  const { colorMode, toggleColorMode } = useColorMode()
+
   return (
     <Wrapper>
       <TopWrapper>
-        <Delete fontSize="inherit" />
-        <Light fontSize="inherit" />
-        <Image fontSize="inherit" />
-        <ImageAspectRatio fontSize="inherit" />
+        <IconWrapper>
+          <Delete fontSize="inherit" />
+          <Font>위젯 편집</Font>
+        </IconWrapper>
+
+        <IconWrapper onClick={() => navigate(`${RouterPath.imageSlides}`)}>
+          <Image fontSize="inherit" />
+          <Font>이미지 슬라이드쇼</Font>
+        </IconWrapper>
+
+        <IconWrapper onClick={toggleColorMode}>
+          {colorMode === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
+
+          <LightMode fontSize="inherit" />
+          <Font>라이트 모드</Font>
+        </IconWrapper>
       </TopWrapper>
       <HomeUIWrapper>
         <HomeUI />
       </HomeUIWrapper>
       <TopWrapper>
-        <Delete fontSize="inherit" />
-        <Light fontSize="inherit" />
-        <Image fontSize="inherit" />
-        <ImageAspectRatio fontSize="inherit" />
+        <IconWrapper>
+          <AddPhotoAlternate fontSize="inherit" />
+          <Font>이미지</Font>
+        </IconWrapper>
+        <IconWrapper>
+          <Widgets fontSize="inherit" />
+          <Font>위젯</Font>
+        </IconWrapper>
+        <IconWrapper>
+          <Person fontSize="inherit" />
+          <Font>프로필</Font>
+        </IconWrapper>
       </TopWrapper>
     </Wrapper>
   )
@@ -27,12 +53,12 @@ const Settings = () => {
 export default Settings
 
 const Wrapper = styled.div`
-  height: 100vh; // 전체 화면에서 가운데 배치
+  height: 100vh;
   width: 100vw;
-  display: flex; /* 추가 */
+  display: flex;
   flex-direction: column;
-  align-items: center; /* 추가 */
-  justify-content: center; /* 추가 */
+  align-items: center;
+  justify-content: center;
 `
 
 const HomeUIWrapper = styled.div`
@@ -62,4 +88,16 @@ const TopWrapper = styled.div`
   padding: 10px;
   line-height: 1;
   cursor: pointer;
+`
+
+const IconWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: rgba(255, 255, 255, 0.65);
+`
+
+const Font = styled.p`
+  font-size: 20px;
+  font-weight: 600;
 `
