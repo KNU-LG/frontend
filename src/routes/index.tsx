@@ -1,16 +1,16 @@
-import { RouterPath } from "./path"
-import { createBrowserRouter, Outlet, RouterProvider, Navigate } from "react-router-dom"
+import { createHashRouter, Navigate, Outlet, RouterProvider } from "react-router-dom"
 import HomePage from "../pages/Home"
 import ImageSlides from "../pages/ImageSlides"
 import Images from "../pages/Images"
 import Login from "../pages/Login"
-import Settings from "../pages/Settings"
-import Widgets from "../pages/Widgets"
 import MyPage from "../pages/MyPage"
+import Settings from "../pages/Settings"
 import SignUp from "../pages/SignUp"
+import Widgets from "../pages/Widgets"
 import { ProtectedRoute } from "./ProtectedRoute"
+import { RouterPath } from "./path"
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: RouterPath.root,
     element: (
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: RouterPath.home,
+        index: true,
         element: <HomePage />,
       },
       {
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
         element: <ProtectedRoute />,
         children: [
           {
-            path: RouterPath.myPage,
+            index: true,
             element: <MyPage />,
           },
         ],
