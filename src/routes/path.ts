@@ -14,6 +14,6 @@ export const RouterPath = {
 export const getDynamicPath = {
   login: (redirect?: string) => {
     const currentRedirect = redirect ?? window.location.pathname
-    return `#/${RouterPath.login}?redirect=${encodeURIComponent(currentRedirect)}`
+    return `/#/${RouterPath.login}?redirect=${encodeURIComponent(currentRedirect)}`
   },
 }

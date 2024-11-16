@@ -1,4 +1,4 @@
-import { createHashRouter, Navigate, Outlet, RouterProvider } from "react-router-dom"
+import { Navigate, Outlet, RouterProvider, createHashRouter } from "react-router-dom"
 import HomePage from "../pages/Home"
 import ImageSlides from "../pages/ImageSlides"
 import Images from "../pages/Images"
@@ -20,7 +20,7 @@ const router = createHashRouter([
     ),
     children: [
       {
-        index: true,
+        path: RouterPath.home,
         element: <HomePage />,
       },
       {
@@ -49,7 +49,7 @@ const router = createHashRouter([
         element: <ProtectedRoute />,
         children: [
           {
-            index: true,
+            path: RouterPath.myPage,
             element: <MyPage />,
           },
         ],
