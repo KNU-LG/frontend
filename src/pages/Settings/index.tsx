@@ -1,32 +1,41 @@
 import styled from "@emotion/styled"
 import { AddPhotoAlternate, Delete, Image, LightMode, Person, Widgets } from "@mui/icons-material"
-import HomeUI from "../Home/components/HomeUI"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { RouterPath } from "../../routes/path"
 import { useColorMode } from "../../provider/ColorModeContext"
+import { RouterPath } from "../../routes/path"
+import HomeUI from "../Home/components/HomeUI"
 
 const Settings = () => {
   const navigate = useNavigate()
   const { colorMode, toggleColorMode } = useColorMode()
+  const [isLogin, setIsLogin] = useState(false)
+
+  useEffect(() => {
+    const accesstoken = localStorage.getItem("accessToken")
+    if (accesstoken) {
+      setIsLogin(true)
+    } else {
+      setIsLogin(false)
+    }
+  }, [isLogin])
 
   return (
     <Wrapper>
       <TopWrapper>
         <IconWrapper>
-          <Delete fontSize="inherit" />
+          <Delete fontSize="inherit" onClick={() => navigate(RouterPath.widgetsSetting)} />
           <Font>위젯 편집</Font>
         </IconWrapper>
 
-        <IconWrapper onClick={() => navigate(`${RouterPath.imageSlides}`)}>
+        <IconWrapper onClick={() => navigate(RouterPath.imageSlides)}>
           <Image fontSize="inherit" />
           <Font>이미지 슬라이드쇼</Font>
         </IconWrapper>
 
         <IconWrapper onClick={toggleColorMode}>
-          {colorMode === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
-
           <LightMode fontSize="inherit" />
-          <Font>라이트 모드</Font>
+          <Font>{colorMode === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}</Font>
         </IconWrapper>
       </TopWrapper>
       <HomeUIWrapper>
@@ -41,7 +50,9 @@ const Settings = () => {
           <Widgets fontSize="inherit" />
           <Font>위젯</Font>
         </IconWrapper>
-        <IconWrapper>
+        <IconWrapper
+          onClick={() => (isLogin ? navigate(RouterPath.myPage) : navigate(RouterPath.login))}
+        >
           <Person fontSize="inherit" />
           <Font>프로필</Font>
         </IconWrapper>
@@ -81,7 +92,6 @@ const TopWrapper = styled.div`
   height: auto;
   font-size: 50px;
   color: white;
-  background-color: #000;
   border-top-left-radius: 70px;
   border-top-right-radius: 70px;
   margin: 10px;

@@ -29,7 +29,7 @@ export const usePostLogin = () => {
       alert("로그인이 완료 되었습니다.")
       const accesstoken = response.data.token
       if (accesstoken) {
-        localStorage.setItem("accesstoken", accesstoken)
+        localStorage.setItem("accessToken", accesstoken)
       }
       navigate(`${RouterPath.home}`)
     },
