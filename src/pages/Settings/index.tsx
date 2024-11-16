@@ -12,7 +12,7 @@ const Settings = () => {
   const [isLogin, setIsLogin] = useState(false)
 
   useEffect(() => {
-    const accesstoken = localStorage.getItem("accesstoken")
+    const accesstoken = localStorage.getItem("accessToken")
     if (accesstoken) {
       setIsLogin(true)
     } else {
