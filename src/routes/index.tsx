@@ -7,6 +7,7 @@ import MyPage from "../pages/MyPage"
 import Settings from "../pages/Settings"
 import SignUp from "../pages/SignUp"
 import Widgets from "../pages/Widgets"
+import WidgetsSetting from "../pages/WidgetsSetting"
 import { ProtectedRoute } from "./ProtectedRoute"
 import { RouterPath } from "./path"
 
@@ -43,6 +44,10 @@ const router = createHashRouter([
       {
         path: RouterPath.signUp,
         element: <SignUp />,
+      },
+      {
+        path: RouterPath.widgetsSetting,
+        element: <WidgetsSetting />,
       },
       {
         path: RouterPath.myPage,
