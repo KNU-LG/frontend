@@ -1,4 +1,5 @@
-import React, { createContext, useState, ReactNode, useContext } from "react"
+// context/ColorModeContext.tsx
+import { createContext, ReactNode, useContext, useEffect, useState } from "react"
 
 type ColorModeContextType = {
   colorMode: string
@@ -8,11 +9,25 @@ type ColorModeContextType = {
 export const ColorModeContext = createContext<ColorModeContextType | undefined>(undefined)
 
 export const ColorModeProvider = ({ children }: { children: ReactNode }) => {
-  const [colorMode, setColorMode] = useState("dark")
+  const [colorMode, setColorMode] = useState(() => {
+    const savedMode = localStorage.getItem("colorMode")
+    return savedMode || "light"
+  })
 
   const toggleColorMode = () => {
-    setColorMode(colorMode === "dark" ? "light" : "dark")
+    const newMode = colorMode === "dark" ? "light" : "dark"
+    setColorMode(newMode)
+    document.documentElement.setAttribute("data-theme", newMode)
+    localStorage.setItem("colorMode", newMode)
   }
+
+  useEffect(() => {
+    const savedMode = localStorage.getItem("colorMode")
+    if (savedMode) {
+      setColorMode(savedMode)
+      document.documentElement.setAttribute("data-theme", savedMode)
+    }
+  }, [])
 
   return (
     <ColorModeContext.Provider value={{ colorMode, toggleColorMode }}>
@@ -24,7 +39,7 @@ export const ColorModeProvider = ({ children }: { children: ReactNode }) => {
 export const useColorMode = () => {
   const context = useContext(ColorModeContext)
   if (!context) {
-    throw new Error("useColorMode must be used within an AuthProvider")
+    throw new Error("useColorMode must be used within an ColorModeProvider")
   }
   return context
 }
