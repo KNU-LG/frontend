@@ -86,6 +86,7 @@ const CustomInput = styled.input`
   height: 40px;
   margin: 8px 0;
   padding: 8px;
+  color: black;
 `
 
 const CustomButton = styled.button`

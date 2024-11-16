@@ -4,10 +4,11 @@ module.exports = {
     es2021: true,
   },
   extends: [
+    "plugin:prettier/recommended", 
+    "prettier",                     
+    "plugin:react/recommended",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "plugin:prettier/recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -18,9 +19,9 @@ module.exports = {
     },
     project: "./tsconfig.json",
   },
-  plugins: ["@typescript-eslint", "react", "prettier"],
+  plugins: ["prettier", "@typescript-eslint", "react"],
   rules: {
-    "prettier/prettier": "error",
+    "prettier/prettier": ["error", { "endOfLine": "lf", "useTabs": false }],
     "@typescript-eslint/no-unused-vars": "warn",
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/no-explicit-any": "warn",
@@ -31,4 +32,4 @@ module.exports = {
       version: "detect",
     },
   },
-}
+};
