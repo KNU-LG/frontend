@@ -11,15 +11,15 @@ interface ButtonProps {
 
 const colorStyles = {
   red: css`
-    background-color: rgba(255, 165, 0, 0.2);
+    background-color: #a50034;
     color: white;
   `,
   white: css`
-    background-color: white;
+    background-color: #f2f2f2;
     color: black;
   `,
   black: css`
-    background-color: black;
+    background-color: #616161;
     color: white;
   `,
 }
@@ -31,15 +31,15 @@ const sizeStyles = {
     font-size: 14px;
   `,
   big: css`
-    width: 380px;
-    height: 80px;
+    width: 230px;
+    height: 130px;
     font-size: 16px;
   `,
 }
 
 const CustomButton = styled.button<ButtonProps>`
   border: none;
-  border-radius: 20px;
+  border-radius: 10px;
   cursor: pointer;
   ${(props) => colorStyles[props.color || "red"]};
   ${(props) => sizeStyles[props.size || "small"]};
