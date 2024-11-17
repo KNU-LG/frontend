@@ -1,7 +1,113 @@
-import React from "react"
+import styled from "@emotion/styled"
+import { AddPhotoAlternate, Delete, Image, LightMode, Person, Widgets } from "@mui/icons-material"
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { useColorMode } from "../../provider/ColorModeContext"
+import { RouterPath } from "../../routes/path"
+import HomeUI from "../Home/components/HomeUI"
 
 const Settings = () => {
-  return <div>Settings</div>
+  const navigate = useNavigate()
+  const { colorMode, toggleColorMode } = useColorMode()
+  const [isLogin, setIsLogin] = useState(false)
+
+  useEffect(() => {
+    const accesstoken = localStorage.getItem("accessToken")
+    if (accesstoken) {
+      setIsLogin(true)
+    } else {
+      setIsLogin(false)
+    }
+  }, [isLogin])
+
+  return (
+    <Wrapper>
+      <TopWrapper>
+        <IconWrapper>
+          <Delete fontSize="inherit" onClick={() => navigate(RouterPath.widgetsSetting)} />
+          <Font>위젯 편집</Font>
+        </IconWrapper>
+
+        <IconWrapper onClick={() => navigate(RouterPath.imageSlides)}>
+          <Image fontSize="inherit" />
+          <Font>이미지 슬라이드쇼</Font>
+        </IconWrapper>
+
+        <IconWrapper onClick={toggleColorMode}>
+          <LightMode fontSize="inherit" />
+          <Font>{colorMode === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}</Font>
+        </IconWrapper>
+      </TopWrapper>
+      <HomeUIWrapper>
+        <HomeUI />
+      </HomeUIWrapper>
+      <TopWrapper>
+        <IconWrapper>
+          <AddPhotoAlternate fontSize="inherit" />
+          <Font>이미지</Font>
+        </IconWrapper>
+        <IconWrapper>
+          <Widgets fontSize="inherit" />
+          <Font>위젯</Font>
+        </IconWrapper>
+        <IconWrapper
+          onClick={() => (isLogin ? navigate(RouterPath.myPage) : navigate(RouterPath.login))}
+        >
+          <Person fontSize="inherit" />
+          <Font>프로필</Font>
+        </IconWrapper>
+      </TopWrapper>
+    </Wrapper>
+  )
 }
 
 export default Settings
+
+const Wrapper = styled.div`
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+
+const HomeUIWrapper = styled.div`
+  border-radius: 70px;
+  background-color: rgba(217, 217, 217, 0.2);
+  width: 100%;
+  height: 70%;
+  font-size: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+const TopWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  font-size: 50px;
+  color: white;
+  border-top-left-radius: 70px;
+  border-top-right-radius: 70px;
+  margin: 10px;
+  padding: 10px;
+  line-height: 1;
+  cursor: pointer;
+`
+
+const IconWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: rgba(255, 255, 255, 0.65);
+`
+
+const Font = styled.p`
+  font-size: 20px;
+  font-weight: 600;
+`

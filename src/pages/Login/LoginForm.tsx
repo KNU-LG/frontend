@@ -1,11 +1,14 @@
 import styled from "@emotion/styled"
 import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 import { usePostLogin } from "../../api/usePostLogin"
 import CustomButton from "../../components/Button"
+import { RouterPath } from "../../routes/path"
 import { Login } from "../../types"
 
 const LoginForm = () => {
   const { mutate, status } = usePostLogin()
+  const navigate = useNavigate()
 
   const {
     register,
@@ -50,6 +53,7 @@ const LoginForm = () => {
 
         {status === "success" && <StatusMessage success>로그인이 완료되었습니다!</StatusMessage>}
       </form>
+      <div onClick={() => navigate(RouterPath.signUp)}>SignUp</div>
     </FormContainer>
   )
 }

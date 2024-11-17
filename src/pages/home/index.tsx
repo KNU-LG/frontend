@@ -1,54 +1,31 @@
-import React from "react"
 import styled from "@emotion/styled"
-import { useState, useEffect } from "react"
-import { Clock } from "../../components/Widgets/Clock"
-import { Calendar } from "../../components/Widgets/Calendar"
-import { Button } from "@chakra-ui/react"
-import { usePosition } from "../../provider/PositionContext"
+import { Settings } from "@mui/icons-material"
+import { useNavigate } from "react-router-dom"
+import { RouterPath } from "../../routes/path"
+import HomeUI from "./components/HomeUI"
 
 const HomePage = () => {
-  const [currentTime, setCurrentTime] = useState("")
-  const { savePositions } = usePosition()
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date()
-      const seoulTime = new Intl.DateTimeFormat("ko-KR", {
-        timeZone: "Asia/Seoul",
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric",
-      }).format(now)
-      setCurrentTime(seoulTime)
-    }
-
-    updateTime() // 초기 시간 업데이트
-    const timer = setInterval(updateTime, 1000) // 1초마다 시간 업데이트
-
-    return () => clearInterval(timer) // 컴포넌트 언마운트 시 타이머 정리
-  }, [])
+  const navigate = useNavigate()
 
   return (
     <Wrapper>
-      <Icon className="material-icons">settings</Icon>
-      <TimeDisplay>{currentTime}</TimeDisplay>
-      <Clock />
-      <Calendar />
-      <SaveButton onClick={savePositions}>save</SaveButton>
+      <SettingIcon className="material-icons" onClick={() => navigate(RouterPath.settings)} />
+      <HomeUI />
     </Wrapper>
   )
 }
 
 export default HomePage
 
-const Icon = styled.i`
+const SettingIcon = styled(Settings)`
   display: flex;
   align-items: flex-start;
   height: auto;
   margin: 0;
   padding: 0;
-  font-size: 50px; /* 필요에 따라 조정 */
-  line-height: 1; /* 기본 line-height를 1로 설정 */
+  font-size: 50px;
+  line-height: 1;
+  cursor: pointer;
 `
 
 const Wrapper = styled.div`
@@ -59,23 +36,4 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #000;
-`
-
-const TimeDisplay = styled.div`
-  font-size: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
-const SaveButton = styled(Button)`
-  width: 50%;
-  height: 10%;
-  font-size: 20px;
-  color: white;
-  border: 1px solid white;
-  margin-bottom: 10px;
-  display: flex;
-  background-color: gray;
 `

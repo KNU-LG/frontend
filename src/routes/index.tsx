@@ -1,16 +1,17 @@
-import { RouterPath } from "./path"
-import { createBrowserRouter, Outlet, RouterProvider, Navigate } from "react-router-dom"
+import { Navigate, Outlet, RouterProvider, createHashRouter } from "react-router-dom"
 import HomePage from "../pages/Home"
 import ImageSlides from "../pages/ImageSlides"
 import Images from "../pages/Images"
 import Login from "../pages/Login"
-import Settings from "../pages/Settings"
-import Widgets from "../pages/Widgets"
 import MyPage from "../pages/MyPage"
+import Settings from "../pages/Settings"
 import SignUp from "../pages/SignUp"
+import Widgets from "../pages/Widgets"
+import WidgetsSetting from "../pages/WidgetsSetting"
 import { ProtectedRoute } from "./ProtectedRoute"
+import { RouterPath } from "./path"
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: RouterPath.root,
     element: (
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: RouterPath.signUp,
         element: <SignUp />,
+      },
+      {
+        path: RouterPath.widgetsSetting,
+        element: <WidgetsSetting />,
       },
       {
         path: RouterPath.myPage,
