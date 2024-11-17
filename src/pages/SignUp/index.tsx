@@ -2,6 +2,7 @@ import styled from "@emotion/styled"
 import { useForm } from "react-hook-form"
 import { usePostRegister } from "../../api/usePostRegister"
 import { Register } from "../../types"
+import CustomButton from "../../components/Button"
 
 const SignUp = () => {
   const { mutate, status } = usePostRegister()
@@ -27,6 +28,7 @@ const SignUp = () => {
   return (
     <Container>
       <CustomForm onSubmit={handleSubmit(handleRegister)}>
+        <Title>Sign Up</Title>
         <CustomInput
           {...register("loginId", { required: "아이디는 필수입니다." })}
           placeholder="Login ID"
@@ -52,10 +54,6 @@ const SignUp = () => {
         <CustomInput {...register("name", { required: "이름은 필수입니다." })} placeholder="Name" />
         {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
 
-        <CustomButton type="submit" disabled={status === "pending"}>
-          {status === "pending" ? "가입 처리중..." : "회원가입"}
-        </CustomButton>
-
         {status === "error" && (
           <StatusMessage error>회원가입 중 오류가 발생했습니다. 다시 시도해주세요.</StatusMessage>
         )}
@@ -69,29 +67,42 @@ const SignUp = () => {
 export default SignUp
 
 const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
   width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
+  margin: auto;
+  background-color: #f2f2f2;
 `
 
 const CustomForm = styled.form`
   display: flex;
   flex-direction: column;
+  width: 45%;
+  width: 500px;
+  height: 500px;
+  padding: 60px 10px;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.1);
+  text-align: center;
+`
+
+const Title = styled.h2`
+  font-size: 24px;
+  font-weight: 600;
+  color: #616161;
 `
 
 const CustomInput = styled.input`
-  width: 100%;
-  height: 40px;
-  margin: 8px 0;
-  padding: 8px;
-`
-
-const CustomButton = styled.button`
-  width: 100%;
-  height: 40px;
-  margin-top: 16px;
+  width: 350px;
+  height: 130px;
+  margin: 15px auto;
+  padding: 0 15px;
+  border: none;
+  border-radius: 10px;
+  background-color: #eaeaea;
 `
 
 const ErrorMessage = styled.span`
