@@ -44,7 +44,7 @@ const LoginForm = () => {
         />
         {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
 
-        <CustomButton type="submit" color="black" size="big" disabled={status === "pending"}>
+        <CustomButton type="submit" color="red" size="big" disabled={status === "pending"}>
           로그인
         </CustomButton>
         {status === "error" && (
