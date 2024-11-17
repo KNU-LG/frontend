@@ -54,6 +54,10 @@ const SignUp = () => {
         <CustomInput {...register("name", { required: "이름은 필수입니다." })} placeholder="Name" />
         {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
 
+        <CustomButton color="red" size="big" type="submit" disabled={status === "pending"}>
+          {status === "pending" ? "가입 처리중..." : "Create an account"}
+        </CustomButton>
+
         {status === "error" && (
           <StatusMessage error>회원가입 중 오류가 발생했습니다. 다시 시도해주세요.</StatusMessage>
         )}
