@@ -1,5 +1,5 @@
-import LoginForm from "./LoginForm"
 import styled from "@emotion/styled"
+import LoginForm from "./LoginForm"
 
 const Login = () => {
   return (
@@ -24,7 +24,7 @@ const Container = styled.div`
   background-color: #f2f2f2;
 `
 
-const CustomForm = styled.form`
+const CustomForm = styled.div`
   display: flex;
   flex-direction: column;
   width: 45%;
