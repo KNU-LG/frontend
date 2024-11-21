@@ -25,3 +25,9 @@ export type APIErrorResponse = {
   statusCode: number
   data: null
 }
+
+export type Widget = {
+  type: string
+  size: "L" | "M" | "S"
+  key: string
+}
