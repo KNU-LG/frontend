@@ -1,11 +1,20 @@
 import styled from "@emotion/styled"
+import { ArrowBack } from "@mui/icons-material"
+import { useNavigate } from "react-router-dom"
+import { RouterPath } from "../../routes/path"
 import LoginForm from "./LoginForm"
 
 const Login = () => {
+  const navigate = useNavigate()
+  const handleBack = () => {
+    navigate(RouterPath.settings)
+  }
   return (
     <Container>
+      <IconWrapper onClick={handleBack}>
+        <ArrowBack fontSize="inherit" />
+      </IconWrapper>
       <CustomForm>
-        <Title>Login</Title>
         <LoginForm></LoginForm>
       </CustomForm>
     </Container>
@@ -32,13 +41,18 @@ const CustomForm = styled.div`
   height: 500px;
   padding: 60px 10px;
   border-radius: 15px;
-  background: #fff;
   box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.1);
   text-align: center;
 `
 
-const Title = styled.h2`
-  font-size: 24px;
-  font-weight: 600;
-  color: #616161;
+const IconWrapper = styled.div`
+  position: absolute;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 40px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  top: 10px;
+  left: 10px;
 `
