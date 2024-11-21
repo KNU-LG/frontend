@@ -1,7 +1,7 @@
 // context/EditModeContext.tsx
 import { createContext, ReactNode, useContext, useState } from "react"
 
-interface EditModeContextType {
+type EditModeContextType = {
   isEditMode: boolean
   setIsEditMode: (mode: boolean) => void
 }

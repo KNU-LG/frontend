@@ -1,13 +1,13 @@
-import React, { createContext, useState, useContext, useEffect, ReactNode } from "react"
+import { createContext, ReactNode, useContext, useEffect, useState } from "react"
 
 interface Position {
   x: number
   y: number
 }
 
-interface PositionContextType {
+type PositionContextType = {
   positions: Record<string, Position>
-  updatePosition: (name: string, position: Position) => void
+  updatePosition: (key: string, position: Position) => void
   savePositions: () => void
   isLoading: boolean
 }
@@ -26,8 +26,8 @@ export const PositionProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(false)
   }, [])
 
-  const updatePosition = (name: string, position: Position) => {
-    setPositions((prev) => ({ ...prev, [name]: position }))
+  const updatePosition = (key: string, position: Position) => {
+    setPositions((prev) => ({ ...prev, [key]: position }))
   }
 
   const savePositions = () => {
