@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import { useNavigate } from "react-router-dom"
+import { usePostCalendar } from "../../api/calendar/usePostCalendar"
 import { CalendarUI } from "../../components/WidgetsUI/CalendarUI"
 import { RouterPath } from "../../routes/path"
 import { Widget } from "../../types"
@@ -7,10 +8,13 @@ import { Widget } from "../../types"
 const Widgets = () => {
   const navigate = useNavigate()
 
+  const { mutate } = usePostCalendar()
+
   const handleWidgetSelect = (widget: Widget) => {
     const existingWidgets = JSON.parse(localStorage.getItem("widgets") || "[]")
     const updatedWidgets = [...existingWidgets, widget]
     localStorage.setItem("widgets", JSON.stringify(updatedWidgets))
+
     navigate(RouterPath.widgetsSetting)
   }
 
@@ -21,21 +25,63 @@ const Widgets = () => {
         <WidgetWrapper>
           <CalendarUI
             size="L"
-            onClick={() =>
-              handleWidgetSelect({ type: "Calendar", size: "L", key: `Calendar-L-${Date.now()}` })
-            }
+            onClick={() => {
+              mutate(
+                {
+                  settingCommon: {
+                    positionX: 0,
+                    positionY: 0,
+                    size: "L",
+                  },
+                },
+                {
+                  onSuccess: (data) => {
+                    console.log("서버로부터 받은 데이터:", data)
+                    handleWidgetSelect({ type: "Calendar", size: "L", key: data.data.id })
+                  },
+                },
+              )
+            }}
           />
           <CalendarUI
             size="M"
-            onClick={() =>
-              handleWidgetSelect({ type: "Calendar", size: "M", key: `Calendar-M-${Date.now()}` })
-            }
+            onClick={() => {
+              mutate(
+                {
+                  settingCommon: {
+                    positionX: 0,
+                    positionY: 0,
+                    size: "M",
+                  },
+                },
+                {
+                  onSuccess: (data) => {
+                    console.log("서버로부터 받은 데이터:", data)
+                    handleWidgetSelect({ type: "Calendar", size: "M", key: data.data.id })
+                  },
+                },
+              )
+            }}
           />
           <CalendarUI
             size="S"
-            onClick={() =>
-              handleWidgetSelect({ type: "Calendar", size: "S", key: `Calendar-S-${Date.now()}` })
-            }
+            onClick={() => {
+              mutate(
+                {
+                  settingCommon: {
+                    positionX: 0,
+                    positionY: 0,
+                    size: "S",
+                  },
+                },
+                {
+                  onSuccess: (data) => {
+                    console.log("서버로부터 받은 데이터:", data)
+                    handleWidgetSelect({ type: "Calendar", size: "S", key: data.data.id })
+                  },
+                },
+              )
+            }}
           />
         </WidgetWrapper>
       </Container>
