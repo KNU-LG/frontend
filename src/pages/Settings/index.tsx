@@ -46,7 +46,7 @@ const Settings = () => {
           <AddPhotoAlternate fontSize="inherit" />
           <Font>이미지</Font>
         </IconWrapper>
-        <IconWrapper>
+        <IconWrapper onClick={() => navigate(RouterPath.widgets)}>
           <Widgets fontSize="inherit" />
           <Font>위젯</Font>
         </IconWrapper>
