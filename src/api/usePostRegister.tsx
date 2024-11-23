@@ -5,16 +5,16 @@ import { fetchInstance } from "./instance"
 import { isAxiosError } from "axios"
 import { useNavigate } from "react-router-dom"
 import { RouterPath } from "../routes/path"
-import { APIErrorResponse, Register, UserResponse } from "../types"
+import { APIResponse, Register, UserResponse } from "../types"
 
-export const postRegister = async (userInfo: Register): Promise<UserResponse> => {
+const postRegister = async (userInfo: Register): Promise<APIResponse<UserResponse>> => {
   const response = await fetchInstance().post("/user/register", userInfo)
   return response.data
 }
 
 export const usePostRegister = () => {
   const navigate = useNavigate()
-  const { mutate, status } = useMutation<UserResponse, APIErrorResponse, Register>({
+  const { mutate, status } = useMutation<APIResponse<UserResponse>, APIResponse<null>, Register>({
     mutationFn: (userInfo: Register) => postRegister(userInfo),
     onError: (error) => {
       if (isAxiosError(error)) {

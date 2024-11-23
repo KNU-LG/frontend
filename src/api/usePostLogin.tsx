@@ -2,20 +2,21 @@ import { useMutation } from "@tanstack/react-query"
 
 import { fetchInstance } from "./instance"
 
-import { APIErrorResponse, Login, UserResponse } from "../types"
+import { APIResponse, Login, UserResponse } from "../types"
 
 import { isAxiosError } from "axios"
 
 import { useNavigate } from "react-router-dom"
 import { RouterPath } from "../routes/path"
-export const postLogin = async (userLogin: Login): Promise<UserResponse> => {
+
+const postLogin = async (userLogin: Login): Promise<APIResponse<UserResponse>> => {
   const response = await fetchInstance().post("/user/login", userLogin)
   return response.data
 }
 
 export const usePostLogin = () => {
   const navigate = useNavigate()
-  const { mutate, status } = useMutation<UserResponse, APIErrorResponse, Login>({
+  const { mutate, status } = useMutation<APIResponse<UserResponse>, APIResponse<null>, Login>({
     mutationFn: (userLogin: Login) => postLogin(userLogin),
     onError: (error) => {
       if (isAxiosError(error)) {
