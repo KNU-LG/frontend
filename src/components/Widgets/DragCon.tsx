@@ -10,6 +10,7 @@ interface DragConProps {
   widgetHeight: number
   widgetWidth: number
   children: React.ReactNode
+  widgetKey: number
 }
 
 interface WrapperProps {
@@ -22,20 +23,20 @@ export const DragCon = (dragprops: DragConProps) => {
   const { isEditMode } = useEditMode()
 
   const [props, set] = useSpring(() => ({
-    x: positions[dragprops.name]?.x || 0,
-    y: positions[dragprops.name]?.y || 0,
+    x: positions[dragprops.widgetKey]?.x || 0,
+    y: positions[dragprops.widgetKey]?.y || 0,
     immediate: true, // 초기 위치로 즉시 이동
   }))
 
   useEffect(() => {
-    if (!isLoading && positions[dragprops.name]) {
+    if (!isLoading && positions[dragprops.widgetKey]) {
       set({
-        x: positions[dragprops.name].x,
-        y: positions[dragprops.name].y,
+        x: positions[dragprops.widgetKey].x,
+        y: positions[dragprops.widgetKey].y,
         immediate: true, // 애니메이션 없이 즉시 이동
       })
     }
-  }, [positions, dragprops.name, isLoading])
+  }, [positions, dragprops.widgetKey, isLoading])
 
   const width = window.innerWidth * 0.8
   const height = window.innerHeight * 0.8
@@ -48,12 +49,12 @@ export const DragCon = (dragprops: DragConProps) => {
       const newY = Math.max(0, Math.min(offset[1], height - dragprops.widgetHeight))
 
       set({ x: newX, y: newY })
-      updatePosition(dragprops.name, { x: newX, y: newY })
+      updatePosition(dragprops.widgetKey, { x: newX, y: newY })
     },
     {
       from: () => [
-        positions[dragprops.name]?.x ?? props.x.get(), // `undefined`일 경우 현재 애니메이션 상태 사용
-        positions[dragprops.name]?.y ?? props.y.get(),
+        positions[dragprops.widgetKey]?.x ?? props.x.get(), // `undefined`일 경우 현재 애니메이션 상태 사용
+        positions[dragprops.widgetKey]?.y ?? props.y.get(),
       ],
       enabled: isEditMode, // 편집 모드일 때만 드래그 활성화
       bounds: {
@@ -72,7 +73,7 @@ export const DragCon = (dragprops: DragConProps) => {
       style={{
         ...props,
         cursor: isEditMode ? "grab" : "default", // 편집 모드일 때만 grab 커서
-        border: isEditMode ? "2px dashed #666" : "none", // 편집 모드일 때 테두리 표시
+        border: isEditMode ? "2px dashed #666" : "2px solid #666", // 편집 모드일 때 테두리 표시
       }}
       width={dragprops.widgetWidth} // styled 컴포넌트 내부에서 사용
       height={dragprops.widgetHeight} // styled 컴포넌트 내부에서 사용

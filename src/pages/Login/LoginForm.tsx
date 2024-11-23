@@ -28,7 +28,7 @@ const LoginForm = () => {
 
   return (
     <FormContainer>
-      <h2>Login</h2>
+      <Title>Login</Title>
       <form onSubmit={handleSubmit(handleLogin)}>
         <StyledInput
           type="text"
@@ -53,7 +53,7 @@ const LoginForm = () => {
 
         {status === "success" && <StatusMessage success>로그인이 완료되었습니다!</StatusMessage>}
       </form>
-      <div onClick={() => navigate(RouterPath.signUp)}>SignUp</div>
+      <SignUpWrapper onClick={() => navigate(RouterPath.signUp)}>SignUp</SignUpWrapper>
     </FormContainer>
   )
 }
@@ -71,6 +71,12 @@ const ErrorMessage = styled.span`
   font-size: 12px;
 `
 
+const Title = styled.h2`
+  font-size: 24px;
+  font-weight: 600;
+  color: #616161;
+`
+
 const StyledInput = styled.input`
   width: 80%;
   height: 40px;
@@ -86,4 +92,10 @@ const StatusMessage = styled.p<{ error?: boolean; success?: boolean }>`
   font-size: 14px;
   text-align: center;
   color: ${(props) => (props.error ? "#ef4444" : props.success ? "#22c55e" : "gray")};
+`
+const SignUpWrapper = styled.div`
+  margin-top: 16px;
+  font-size: 14px;
+  width: 100px;
+  color: gray;
 `
