@@ -1,7 +1,10 @@
 import styled from "@emotion/styled"
+import { Cancel } from "@mui/icons-material"
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
+import { IconButton as MuiIconButton } from "@mui/material"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { useDeleteSchedule } from "../../../api/schedule/useDeleteSchedule"
 import { usePostSchedule } from "../../../api/schedule/usePostSchedule"
 import { Schedule, ScheduleResponse } from "../../../types"
 
@@ -14,9 +17,11 @@ type ModalProps = {
 }
 
 export const Modal = ({ isOpen, onClose, title, widgetKey, scheduleList }: ModalProps) => {
-  const { mutate, status } = usePostSchedule()
+  const { mutate: postSchedule, status: postStatus } = usePostSchedule()
   const [isExpanded, setIsExpanded] = useState(false)
   const now = new Date().toISOString()
+  const { mutate: deleteSchedule, status: deleteStatus } = useDeleteSchedule(widgetKey)
+
   const formatDate = (isoDate: string) => {
     const date = new Date(isoDate)
     return date.toLocaleString("en-US", {
@@ -42,7 +47,7 @@ export const Modal = ({ isOpen, onClose, title, widgetKey, scheduleList }: Modal
   })
 
   const onSubmit = handleSubmit((data) => {
-    mutate(data, {
+    postSchedule(data, {
       onSuccess: () => {
         onClose()
       },
@@ -82,11 +87,11 @@ export const Modal = ({ isOpen, onClose, title, widgetKey, scheduleList }: Modal
               />
               {errors.content && <ErrorMessage>{errors.content.message}</ErrorMessage>}
             </InputWrapper>
-            {status === "pending" && <StatusMessage>저장 중입니다...</StatusMessage>}
-            {status === "error" && (
+            {postStatus === "pending" && <StatusMessage>저장 중입니다...</StatusMessage>}
+            {postStatus === "error" && (
               <StatusMessage error>저장에 실패했습니다. 다시 시도해주세요.</StatusMessage>
             )}
-            <SubmitButton type="submit" disabled={status === "pending"}>
+            <SubmitButton type="submit" disabled={postStatus === "pending"}>
               저장
             </SubmitButton>
           </Form>
@@ -97,13 +102,23 @@ export const Modal = ({ isOpen, onClose, title, widgetKey, scheduleList }: Modal
             <EmptyMessage>등록된 스케줄이 없습니다.</EmptyMessage>
           ) : (
             scheduleList.map((schedule) => (
-              <ScheduleItem key={schedule.id}>
-                <ScheduleHeader>
-                  <ScheduleTitle>{schedule.title}</ScheduleTitle>
-                  <ScheduleDate>{formatDate(schedule.date)}</ScheduleDate>
-                </ScheduleHeader>
-                <ScheduleContent>{schedule.content}</ScheduleContent>
-              </ScheduleItem>
+              <Wrapper key={schedule.id}>
+                <StyledIconButton
+                  onClick={() => {
+                    deleteSchedule(schedule.id)
+                  }}
+                  disabled={deleteStatus === "pending"}
+                >
+                  <Cancel />
+                </StyledIconButton>
+                <ScheduleItem>
+                  <ScheduleHeader>
+                    <ScheduleTitle>{schedule.title}</ScheduleTitle>
+                    <ScheduleDate>{formatDate(schedule.date)}</ScheduleDate>
+                  </ScheduleHeader>
+                  <ScheduleContent>{schedule.content}</ScheduleContent>
+                </ScheduleItem>
+              </Wrapper>
             ))
           )}
         </ScheduleListContainer>
@@ -122,6 +137,15 @@ const Overlay = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 100;
+`
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 8px 0;
+  gap: 8px;
+  width: 100%;
+  height: auto;
+  align-items: flex-end;
 `
 
 const ModalContent = styled.div`
@@ -222,6 +246,15 @@ const SubmitButton = styled.button`
   cursor: pointer;
   &:hover {
     background-color: #0056b3;
+  }
+`
+
+const StyledIconButton = styled(MuiIconButton)`
+  padding: 4px;
+  width: 15px;
+  height: 15px;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
   }
 `
 
