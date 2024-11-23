@@ -6,8 +6,8 @@ interface Position {
 }
 
 type PositionContextType = {
-  positions: Record<string, Position>
-  updatePosition: (key: string, position: Position) => void
+  positions: Record<number, Position>
+  updatePosition: (key: number, position: Position) => void
   savePositions: () => void
   isLoading: boolean
 }
@@ -15,7 +15,7 @@ type PositionContextType = {
 export const PositionContext = createContext<PositionContextType | undefined>(undefined)
 
 export const PositionProvider = ({ children }: { children: ReactNode }) => {
-  const [positions, setPositions] = useState<Record<string, Position>>({})
+  const [positions, setPositions] = useState<Record<number, Position>>({})
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export const PositionProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(false)
   }, [])
 
-  const updatePosition = (key: string, position: Position) => {
+  const updatePosition = (key: number, position: Position) => {
     setPositions((prev) => ({ ...prev, [key]: position }))
   }
 
