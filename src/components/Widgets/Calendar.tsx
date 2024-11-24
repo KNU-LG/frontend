@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import { useState } from "react"
+import { useDeleteCalendar } from "../../api/calendar/useDeleteCalendar"
 import { useGetSchedule } from "../../api/schedule/useGetSchedule"
 import { useEditMode } from "../../provider/EditModeContext"
 import { DragCon } from "./DragCon"
@@ -12,12 +13,20 @@ type CalendarProp = {
 export const Calendar = ({ size, widgetKey }: CalendarProp) => {
   const { isEditMode } = useEditMode()
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
   const { data } = useGetSchedule(widgetKey)
 
-  const handleClick = () => {
-    if (!isEditMode) {
-      setIsModalOpen(true)
-    }
+  const { mutate, status } = useDeleteCalendar(widgetKey)
+
+  const handleDelete = () => {
+    setIsDeleting(true)
+    setTimeout(() => {
+      mutate(widgetKey, {
+        onSuccess: () => {
+          window.location.reload()
+        },
+      })
+    }, 500)
   }
 
   const formatDate = (isoDate: string) => {
@@ -48,16 +57,23 @@ export const Calendar = ({ size, widgetKey }: CalendarProp) => {
         widgetWidth={widgetWidth}
         widgetKey={widgetKey}
       >
-        <Wrapper onClick={handleClick}>
-          <ContentContainer>
-            {data.data.map((schedule) => (
-              <ScheduleItem key={schedule.id}>
-                <ScheduleDate>{formatDate(schedule.date)}</ScheduleDate>
-                <ScheduleTitle>{schedule.title}</ScheduleTitle>
-              </ScheduleItem>
-            ))}
-          </ContentContainer>
-        </Wrapper>
+        <FadeWrapper isDeleting={isDeleting}>
+          {isEditMode && (
+            <DeleteButton onClick={handleDelete} disabled={status === "pending"}>
+              {status === "pending" ? "⏳" : "✖"}
+            </DeleteButton>
+          )}
+          <Wrapper onClick={() => !isEditMode && setIsModalOpen(true)}>
+            <ContentContainer>
+              {data.data.map((schedule) => (
+                <ScheduleItem key={schedule.id}>
+                  <ScheduleDate>{formatDate(schedule.date)}</ScheduleDate>
+                  <ScheduleTitle>{schedule.title}</ScheduleTitle>
+                </ScheduleItem>
+              ))}
+            </ContentContainer>
+          </Wrapper>
+        </FadeWrapper>
       </DragCon>
 
       <Modal
@@ -70,6 +86,11 @@ export const Calendar = ({ size, widgetKey }: CalendarProp) => {
     </>
   )
 }
+
+const FadeWrapper = styled.div<{ isDeleting: boolean }>`
+  opacity: ${(props) => (props.isDeleting ? 0 : 1)};
+  transition: opacity 0.5s ease-in-out;
+`
 
 const Wrapper = styled.div`
   cursor: pointer;
@@ -84,7 +105,6 @@ const ContentContainer = styled.div`
   width: 100%;
   overflow-y: auto;
 
-  /* 스크롤바 스타일링 */
   &::-webkit-scrollbar {
     width: 4px;
   }
@@ -120,4 +140,22 @@ const ScheduleTitle = styled.h2`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+`
+
+const DeleteButton = styled.button`
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: red;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 50%;
+  cursor: pointer;
+  &:hover {
+    background: darkred;
+  }
 `
