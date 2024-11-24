@@ -10,24 +10,51 @@ export type Login = {
   password: string
 }
 
-export type UserResponse = {
-  message: string
-  error: string
-  statausCode: number
-  data: {
-    token: string
-  }
+export type Schedule = {
+  calendarId: number
+  date: string
+  title: string
+  content: string
 }
 
-export type APIErrorResponse = {
+export type ScheduleResponse = {
+  date: string
+  id: number
+  title: string
+  content: string
+}
+
+export type UserResponse = {
+  token: string
+}
+
+export type APIResponse<T> = {
   message: string
   error: string
   statusCode: number
-  data: null
+  data: T
 }
 
 export type Widget = {
   type: string
   size: "L" | "M" | "S"
-  key: string
+  key: number
+}
+
+export type CalendarResponse = {
+  id: number
+  settingCommon: {
+    id: number
+    positionX: number
+    positionY: number
+    size: "L" | "M" | "S"
+  }
+}
+
+export type Calendar = {
+  settingCommon: {
+    positionX: number
+    positionY: number
+    size: "L" | "M" | "S"
+  }
 }
