@@ -1,5 +1,13 @@
 import styled from "@emotion/styled"
-import { AddPhotoAlternate, Delete, Image, LightMode, Person, Widgets } from "@mui/icons-material"
+import {
+  AddPhotoAlternate,
+  ArrowBack,
+  Delete,
+  Image,
+  LightMode,
+  Person,
+  Widgets,
+} from "@mui/icons-material"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useColorMode } from "../../provider/ColorModeContext"
@@ -10,6 +18,10 @@ const Settings = () => {
   const navigate = useNavigate()
   const { colorMode, toggleColorMode } = useColorMode()
   const [isLogin, setIsLogin] = useState(false)
+
+  const handleBack = () => {
+    navigate(RouterPath.home)
+  }
 
   useEffect(() => {
     const accesstoken = localStorage.getItem("accessToken")
@@ -22,7 +34,10 @@ const Settings = () => {
 
   return (
     <Wrapper>
-      <TopWrapper>
+      <BackIconWrapper onClick={handleBack}>
+        <ArrowBack fontSize="inherit" />
+      </BackIconWrapper>
+      <IconsWrapper>
         <IconWrapper>
           <Delete fontSize="inherit" onClick={() => navigate(RouterPath.widgetsSetting)} />
           <Font>위젯 편집</Font>
@@ -37,11 +52,11 @@ const Settings = () => {
           <LightMode fontSize="inherit" />
           <Font>{colorMode === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}</Font>
         </IconWrapper>
-      </TopWrapper>
+      </IconsWrapper>
       <HomeUIWrapper>
         <HomeUI />
       </HomeUIWrapper>
-      <TopWrapper>
+      <IconsWrapper>
         <IconWrapper>
           <AddPhotoAlternate fontSize="inherit" />
           <Font>이미지</Font>
@@ -56,7 +71,7 @@ const Settings = () => {
           <Person fontSize="inherit" />
           <Font>프로필</Font>
         </IconWrapper>
-      </TopWrapper>
+      </IconsWrapper>
     </Wrapper>
   )
 }
@@ -65,7 +80,7 @@ export default Settings
 
 const Wrapper = styled.div`
   height: 100vh;
-  width: 100vw;
+  width: 90vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -84,7 +99,8 @@ const HomeUIWrapper = styled.div`
   align-items: center;
 `
 
-const TopWrapper = styled.div`
+const IconsWrapper = styled.div`
+  z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -110,4 +126,15 @@ const IconWrapper = styled.div`
 const Font = styled.p`
   font-size: 20px;
   font-weight: 600;
+`
+const BackIconWrapper = styled.div`
+  position: absolute;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 40px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  top: 10px;
+  left: 10px;
 `
