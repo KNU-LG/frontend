@@ -1,4 +1,5 @@
 import styled from "@emotion/styled"
+import { ArrowBack } from "@mui/icons-material"
 import { useNavigate } from "react-router-dom"
 import { usePostCalendar } from "../../api/calendar/usePostCalendar"
 import { CalendarUI } from "../../components/WidgetsUI/CalendarUI"
@@ -7,6 +8,10 @@ import { Widget } from "../../types"
 
 const Widgets = () => {
   const navigate = useNavigate()
+
+  const handleBack = () => {
+    navigate(RouterPath.settings)
+  }
 
   const { mutate } = usePostCalendar()
 
@@ -20,6 +25,9 @@ const Widgets = () => {
 
   return (
     <div>
+      <IconWrapper onClick={handleBack}>
+        <ArrowBack fontSize="inherit" />
+      </IconWrapper>
       <Container>
         <Title>Calendar</Title>
         <WidgetWrapper>
@@ -115,4 +123,15 @@ const Title = styled.p`
   font-size: 20px;
   font-weight: 600;
   margin: 10px;
+`
+const IconWrapper = styled.div`
+  position: absolute;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 40px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  top: 10px;
+  left: 10px;
 `
