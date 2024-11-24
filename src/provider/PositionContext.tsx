@@ -5,9 +5,14 @@ interface Position {
   y: number
 }
 
+interface WidgetPosition {
+  position: Position
+  widgetName: string
+}
+
 type PositionContextType = {
-  positions: Record<number, Position>
-  updatePosition: (key: number, position: Position) => void
+  positions: Record<string, WidgetPosition>
+  updatePosition: (widgetId: string, position: Position) => void
   savePositions: () => void
   isLoading: boolean
 }
@@ -15,7 +20,7 @@ type PositionContextType = {
 export const PositionContext = createContext<PositionContextType | undefined>(undefined)
 
 export const PositionProvider = ({ children }: { children: ReactNode }) => {
-  const [positions, setPositions] = useState<Record<number, Position>>({})
+  const [positions, setPositions] = useState<Record<string, WidgetPosition>>({})
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -26,8 +31,14 @@ export const PositionProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(false)
   }, [])
 
-  const updatePosition = (key: number, position: Position) => {
-    setPositions((prev) => ({ ...prev, [key]: position }))
+  const updatePosition = (widgetId: string, position: Position) => {
+    setPositions((prev) => ({
+      ...prev,
+      [widgetId]: {
+        position,
+        widgetName: widgetId.split("-")[1], // Extract widget name from ID if needed
+      },
+    }))
   }
 
   const savePositions = () => {
