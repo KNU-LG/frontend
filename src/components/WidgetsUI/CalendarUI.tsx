@@ -30,5 +30,6 @@ const Wrapper = styled.div<{ widgetHeight: number; widgetWidth: number }>`
   background-color: #f0f0f0;
   font-size: 20px;
   border: 1px solid gray;
+  border-radius: 10px;
   cursor: pointer;
 `
