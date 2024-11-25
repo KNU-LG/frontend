@@ -90,6 +90,8 @@ export const Calendar = ({ size, widgetKey }: CalendarProp) => {
 const FadeWrapper = styled.div<{ isDeleting: boolean }>`
   opacity: ${(props) => (props.isDeleting ? 0 : 1)};
   transition: opacity 0.5s ease-in-out;
+  width: 100%;
+  height: 100%;
 `
 
 const Wrapper = styled.div`
@@ -97,7 +99,6 @@ const Wrapper = styled.div`
   height: 100%;
   width: 100%;
   padding: 8px;
-  border-radius: 4px;
 `
 
 const ContentContainer = styled.div`
