@@ -1,5 +1,5 @@
 import { ColorModeProvider } from "./ColorModeContext"
-import { DimmingProvider } from "./DimmingContext"
+import { DimmingProvider } from "./DimmingProvider"
 import { EditModeProvider } from "./EditModeContext"
 import { PositionProvider } from "./PositionContext"
 
