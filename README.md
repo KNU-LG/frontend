@@ -1,26 +1,23 @@
-# KNU 산학 프로젝트 프론트엔드 레포지토리입니다.
+# KNU Capstone Design Project 1 Frontend Repository
 
-## 📋 목차
+## 📋 Table of Contents
+- [Tech Stack](#tech-stack)
+- [Implemented Features and Technologies](#implemented-features-and-technologies)
+  - [Home Screen](#home-screen)
+  - [Settings Screen](#settings-screen)
+  - [Widget Configuration Screen](#widget-configuration-screen)
+  - [Widget Addition Screen](#widget-addition-screen)
+  - [Login and Signup](#login-and-signup)
+  - [Widget Mode and Image Slide Mode](#widget-mode-and-image-slide-mode)
+  - [Calendar Widget](#calendar-widget)
+  - [Dimming Feature](#dimming-feature)
+  - [Dark / Light Mode](#dark--light-mode)
+- [How to Run](#how-to-run)
+  - [Emulator](#emulator)
+  - [Raspberry Pi](#raspberry-pi)
+- [License](#license)
 
-- [KNU 산학 프로젝트 프론트엔드 레포지토리입니다.](#knu-산학-프로젝트-프론트엔드-레포지토리입니다)
-  - [📋 목차](#-목차)
-  - [기술 스택](#기술-스택)
-  - [구현 내용 및 사용 기술](#구현-내용-및-사용-기술)
-    - [홈 화면](#홈-화면)
-    - [설정 화면](#설정-화면)
-    - [위젯 세팅 화면](#위젯-세팅-화면)
-    - [위젯 추가 화면](#위젯-추가-화면)
-    - [로그인 및 회원가입](#로그인-및-회원가입)
-    - [위젯 모드, 이미지 슬라이드 모드](#위젯-모드-이미지-슬라이드-모드)
-    - [캘린더 위젯](#캘린더-위젯)
-    - [Dimming 기능](#dimming-기능)
-    - [다크 / 라이트 모드](#다크--라이트-모드)
-  - [실행 방법](#실행-방법)
-    - [에뮬레이터](#에뮬레이터)
-    - [라즈베리파이](#라즈베리파이)
-  - [License](#license)
-
-## 기술 스택
+## Tech Stack
 
 <div>
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black">
@@ -32,79 +29,79 @@
 <img src="https://img.shields.io/badge/webOS-a50034.svg?style=for-the-badge&logo=lg&logoColor=white">
 <div/>
 
-## 구현 내용 및 사용 기술
+## Implemented Features and Technologies
 
-### 홈 화면
+### Home Screen
 
-가장 먼저 어플리케이션을 동작시 나오는 화면입니다. 설정한 위젯들이 나옵니다.
+This is the initial screen that appears when the application starts. The configured widgets are displayed here.
 
-### 설정 화면
+### Settings Screen
 
-해당 화면에서는 여러 기능을 사용할 수 있습니다.
+This screen allows users to access various features.
 
-### 위젯 세팅 화면
+### Login and Signup
 
-해당 화면에서는 위젯 위치 수정 및 위젯 삭제를 할 수 있습니다.
-그 후 사용자가 편집 버튼을 누른 후 위젯의 위치를 편집합니다. 편집을 완료 한 후 저장 버튼을 누를 경우 로컬 스토리지의 위젯 위치 배열을 업데이트 하게 됩니다. 또한 api를 통해 서버에도 해당 내용을 업데이트 하게 됩니다.<br/>
+`react-hook-form` is used for validation, and `useForm` is utilized to manage login and signup states.<br/>
+**On login or signup** -> The input values are sent to the server, and a token is received in response.
 
-### 위젯 추가 화면
+### Widget Mode and Image Slide Mode
 
-해당 화면에서는 원하는 위젯을 추가할 수 있습니다. 위젯의 경우 종류별 그리고 사이즈별(L, M, S)로 존재합니다. 유저가 원하는 위젯을 추가할 시 위젯 편집 페이지로 이동하게 됩니다. <br/> 위젯 편집 페이지로 이동하는 과정에 사용자의 로컬 기기 내에서도 위젯의 위치 배열과 위젯 종류 배열을 업데이트 하게 됩니다.
+- **Widget Mode** displays the widgets. Additionally, you must log in first to add widgets <br/>
+- **Image Slide Mode** displays an image slideshow.
 
-### 로그인 및 회원가입
+### Widget Configuration Screen
 
-react hook form을 사용하여 validation을 처리하고 useForm을 통해 로그인 및 회원가입 상태를 관리합니다. <br/>
-**로그인, 회원가입시** -> 입력 받은 값을 서버로 넘기고 그에 대한 response로 token을 받습니다.
+Users can modify or delete widget positions on this screen. At this point, `react-use-gesture` is used to update the widget's position. After pressing the edit button, users can rearrange widget positions. Once editing is complete, pressing the save button updates the widget position array in local storage and also sends the changes to the server via an API.<br/>
 
-### 위젯 모드, 이미지 슬라이드 모드
+### Widget Addition Screen
 
-**위젯 모드**의 경우 위젯을 보여주는 모드입니다. <br/>
-**이미지 슬라이드**의 경우 이미지 슬라이드를 보여주는 모드입니다.
+Users can add their desired widgets on this screen. Widgets are categorized by type and size (L, M, S). Upon selecting a widget to add, users are directed to the widget editing page. During this process, the widget position and type arrays are updated in the user's local device and Server.<br/>
 
-### 캘린더 위젯
 
-위젯을 누를 시 Modal이 뜨며 Modal 내에서 캘린더 위젯 내에서 스케줄을 추가할 수 있게 합니다. <br/>
+### Calendar Widget
 
-**캘린더 추가 시** -> api를 통해 캘린더 위젯 정보를 넘겨줌과 동시에 위젯 편집 페이지로 이동합니다. <br/>
+Clicking on a widget opens a modal where users can add schedules in the calendar widget.<br/>
 
-**캘린더 삭제 시** -> api를 통해 캘린더 위젯을 삭제 합니다. 그와 동시에 로컬스토리지의 내용 또한 업데이트 해줍니다. 그 후 UI를 reload하여 삭제된 화면을 보여 줍니다. <br/>
+**When adding a calendar** -> The calendar widget data is sent via an API, and users are directed to the widget editing page.<br/>
 
-**스케줄 추가 시** -> react-hook-form을 통해 스케줄의 제목과 내용을 모두 받습니다. 그 후 스케줄 추가를 누를 시 해당 내용이 추가가 되어 서버로 전송이 됩니다. 이때 tanstack query를 통해 해당 내용을 캐싱하게 되고 캐싱 key를 통해 업데이트 하게 됩니다. <br/>
+**When deleting a calendar** -> The calendar widget is deleted via an API. Simultaneously, the local storage data is updated, and the UI is reloaded to reflect the changes.<br/>
 
-**스케줄 삭제 시** -> api를 통해 스케줄을 삭제하게 됩니다. 그와 동시에 캐싱 내용을 업데이트 해줍니다.<br/>
+**When adding a schedule** -> The schedule title and content are received using `react-hook-form`. Clicking the "Add Schedule" button sends the data to the server. `TanStack Query` caches the data and updates it using a cache key.<br/>
 
-### Dimming 기능
+**When deleting a schedule** -> The schedule is deleted via an API, and the cached data is also updated.<br/>
 
-dimming provider를 통해 관리됩니다. 이때 window.addEventListner를 통해 mousemove, keydown, touchstart, click을 감지하고 해당 요소들을 감지한지 10초가 지나게 되면 레이어를 한층 더 쌓아 화면을 어둡게 처리합니다.
+### Dimming Feature
 
-### 다크 / 라이트 모드
+This is managed through a dimming provider. Using `window.addEventListener`, it detects `mousemove`, `keydown`, `touchstart`, and `click` events. If no such events are detected for 10 seconds, an additional layer is applied to darken the screen.
 
-context api를 통해 전역 상태로 다크 모드와 라이트 모드를 제어합니다. 각 모드에 따른 css 값을 전역으로 관리하여 UI에 영향을 주게 됩니다.
+### Dark / Light Mode
 
-## 실행 방법
+The `Context API` is used to globally manage and toggle between dark and light modes. Each mode's CSS values are globally managed to affect the UI.
 
-### 에뮬레이터
+## How to Run
+
+### Emulator
 
 > npm install -g @webos-tools/cli
 
-해당 명령어를 통해 cli를 설치합니다
+Install the CLI tool using the above command.
 
 > npm build
 
-해당 명령어를 통해 리액트 앱을 빌드합니다.
+Build the React app using the above command.
 
 > ares-package -n build
 
-해당 webOS CLI를 통해 빌드한 내용을 ipk로 패키징 해줍니다.
+Package the built app into an IPK file using the webOS CLI tool.
 
 > ares-install your-app-name.ipk
 
-해당 명령어를 통해 webOS 에뮬레이터에 설치해 줍니다.
+Install the app onto the webOS emulator using the above command. After installation, run the app through the emulator.
 
-그 후 설치된 앱을 에뮬레이터를 통해 실행해 줍니다.
+### Raspberry Pi
 
-### 라즈베리파이
+_(Instructions to be added)_
 
 ## License
 
-프로젝트는 MIT 라이선스입니다. MIT licensed
+This project is licensed under the MIT License.
