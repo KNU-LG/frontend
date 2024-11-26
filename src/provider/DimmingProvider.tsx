@@ -1,12 +1,5 @@
 import styled from "@emotion/styled"
-import React, { createContext, useContext, useEffect, useState } from "react"
-
-type DimmingContextType = {
-  isDimmed: boolean
-  resetDimming: () => void
-}
-
-const DimmingContext = createContext<DimmingContextType | undefined>(undefined)
+import React, { useEffect, useState } from "react"
 
 export const DimmingProvider = ({ children }: { children: React.ReactNode }) => {
   const [isDimmed, setIsDimmed] = useState(false)
@@ -44,7 +37,7 @@ export const DimmingProvider = ({ children }: { children: React.ReactNode }) => 
   }, [lastActivity, isDimmed])
 
   return (
-    <DimmingContext.Provider value={{ isDimmed, resetDimming }}>
+    <>
       <div
         style={{
           filter: isDimmed ? "brightness(0.8)" : "none",
@@ -54,7 +47,7 @@ export const DimmingProvider = ({ children }: { children: React.ReactNode }) => 
         {children}
       </div>
       {isDimmed && <DimmingOverlay />}
-    </DimmingContext.Provider>
+    </>
   )
 }
 
@@ -71,11 +64,3 @@ const DimmingOverlay = styled.div`
   width: 100vw;
   height: 100vh;
 `
-
-export const useDimming = () => {
-  const context = useContext(DimmingContext)
-  if (!context) {
-    throw new Error("useDimming must be used within a DimmingProvider")
-  }
-  return context
-}
