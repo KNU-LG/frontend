@@ -8,8 +8,9 @@ import {
   Person,
   Widgets,
 } from "@mui/icons-material"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useBackgroundImage } from "../../provider/BackgroundContext"
 import { useColorMode } from "../../provider/ColorModeContext"
 import { RouterPath } from "../../routes/path"
 import HomeUI from "../Home/components/HomeUI"
@@ -31,6 +32,27 @@ const Settings = () => {
       setIsLogin(false)
     }
   }, [isLogin])
+
+  const { updateBackgroundImage } = useBackgroundImage()
+
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    const reader = new FileReader()
+    reader.onloadend = () => {
+      const result = reader.result as string
+      updateBackgroundImage(result)
+      localStorage.setItem("backgroundImage", result)
+    }
+    reader.readAsDataURL(file)
+  }
+
+  const handleImageClick = () => {
+    fileInputRef.current?.click()
+  }
 
   return (
     <Wrapper>
@@ -57,10 +79,17 @@ const Settings = () => {
         <HomeUI />
       </HomeUIWrapper>
       <IconsWrapper>
-        <IconWrapper>
+        <IconWrapper onClick={handleImageClick}>
           <AddPhotoAlternate fontSize="inherit" />
           <Font>이미지</Font>
+          <HiddenInput
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+          />
         </IconWrapper>
+
         <IconWrapper onClick={() => navigate(RouterPath.widgets)}>
           <Widgets fontSize="inherit" />
           <Font>위젯</Font>
@@ -137,4 +166,7 @@ const BackIconWrapper = styled.div`
   height: 40px;
   top: 10px;
   left: 10px;
+`
+const HiddenInput = styled.input`
+  display: none;
 `
