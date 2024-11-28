@@ -2,11 +2,14 @@ import styled from "@emotion/styled"
 import { useEffect, useState } from "react"
 import { Calendar } from "../../../components/Widgets/Calendar"
 import { Clock } from "../../../components/Widgets/Clock"
+import { useBackgroundImage } from "../../../provider/BackgroundContext"
 import { Widget } from "../../../types"
 
 const HomeUI = () => {
   const [currentTime, setCurrentTime] = useState("")
   const [widgets, setWidgets] = useState<Widget[]>([])
+
+  const { backgroundImage } = useBackgroundImage()
 
   useEffect(() => {
     const existingWidgets = JSON.parse(localStorage.getItem("widgets") || "[]")
@@ -32,7 +35,7 @@ const HomeUI = () => {
   }, [])
 
   return (
-    <div>
+    <Container backgroundImage={backgroundImage}>
       <TimeDisplay>{currentTime}</TimeDisplay>
       {widgets.map((widget) => {
         switch (widget.type) {
@@ -50,11 +53,21 @@ const HomeUI = () => {
             return null
         }
       })}
-    </div>
+    </Container>
   )
 }
 
 export default HomeUI
+
+const Container = styled.div<{ backgroundImage?: string }>`
+  width: 100%;
+  height: 100%;
+  background-image: ${({ backgroundImage }) =>
+    backgroundImage ? `url(${backgroundImage})` : "none"};
+  background-size: cover;
+  background-position: center;
+  border-radius: 70px;
+`
 
 const TimeDisplay = styled.div`
   font-size: 50px;
