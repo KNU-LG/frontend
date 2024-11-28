@@ -3,14 +3,18 @@ import { APIResponse, ProfileResponse } from "../types"
 import { fetchInstanceWithToken } from "./instance"
 import { jwtDecode } from "jwt-decode"
 
-const getProfile = async (userId: string): Promise<APIResponse<ProfileResponse>> => {
+const extractUserId = (token: string): string | null => {
+  const decoded = jwtDecode<{ userId: string }>(token)
+  return decoded.userId || null
+}
+
+const getProfile = async (token: string): Promise<APIResponse<ProfileResponse>> => {
+  const userId = extractUserId(token)
   const response = await fetchInstanceWithToken().get("/user/:user-id", {
     params: {
       userId: userId,
     },
   })
-  const token = userId
-  const decoded = jwtDecode(token)
   return response.data
 }
 
