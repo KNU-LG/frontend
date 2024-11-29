@@ -25,11 +25,13 @@ const MyPageContext = () => {
 }
 
 const MyPage = () => {
-  ;<ErrorBoundary fallback={<div>Error...</div>}>
-    <Suspense fallback={<div>Loading...</div>}>
-      <MyPageContext />
-    </Suspense>
-  </ErrorBoundary>
+  return (
+    <ErrorBoundary fallback={<div>Error...</div>}>
+      <Suspense fallback={<div>Loading...</div>}>
+        <MyPageContext />
+      </Suspense>
+    </ErrorBoundary>
+  )
 }
 
 export default MyPage
