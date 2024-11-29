@@ -4,8 +4,10 @@ import { APIResponse, ProfileResponse } from "../types"
 import { fetchInstanceWithToken } from "./instance"
 
 const extractUserId = (token: string): string | null => {
-  const decoded = jwtDecode<{ userId: string }>(token)
-  return decoded.userId || null
+  const decoded = jwtDecode<{ id: string }>(token)
+  console.log(token)
+  console.log(decoded)
+  return decoded.id || null
 }
 
 const getProfile = async (token: string): Promise<APIResponse<ProfileResponse>> => {
@@ -14,10 +16,10 @@ const getProfile = async (token: string): Promise<APIResponse<ProfileResponse>> 
   return response.data
 }
 
-export const useGetProfile = (userId: string) => {
+export const useGetProfile = (token: string) => {
   const { data } = useSuspenseQuery<APIResponse<ProfileResponse>, APIResponse<null>>({
-    queryFn: () => getProfile(userId),
-    queryKey: ["profile", userId],
+    queryFn: () => getProfile(token),
+    queryKey: ["profile", token],
     staleTime: 0,
   })
 
