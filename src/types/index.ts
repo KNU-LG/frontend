@@ -58,3 +58,12 @@ export type Calendar = {
     size: "L" | "M" | "S"
   }
 }
+
+export type ProfileResponse = {
+  id: number
+  email: string
+  mode: string
+  name: string
+  loginId: string
+  theme: string
+}
