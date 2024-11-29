@@ -1,7 +1,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query"
+import { jwtDecode } from "jwt-decode"
 import { APIResponse, ProfileResponse } from "../types"
 import { fetchInstanceWithToken } from "./instance"
-import { jwtDecode } from "jwt-decode"
 
 const extractUserId = (token: string): string | null => {
   const decoded = jwtDecode<{ userId: string }>(token)
@@ -10,11 +10,7 @@ const extractUserId = (token: string): string | null => {
 
 const getProfile = async (token: string): Promise<APIResponse<ProfileResponse>> => {
   const userId = extractUserId(token)
-  const response = await fetchInstanceWithToken().get("/user/:user-id", {
-    params: {
-      userId: userId,
-    },
-  })
+  const response = await fetchInstanceWithToken().get(`/user/${userId}`)
   return response.data
 }
 
