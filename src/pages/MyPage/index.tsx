@@ -1,19 +1,17 @@
-import React from "react"
 import styled from "@emotion/styled"
-import { Profile } from "../../types"
+import { Suspense } from "react"
+import { ErrorBoundary } from "react-error-boundary"
 import { useGetProfile } from "../../api/useGetProfile"
 import CustomButton from "../../components/Button"
 
-const MyPage = () => {
-  const  {data, status} = useGetProfile()
-
-  const 
+const MyPageContext = () => {
+  const token = localStorage.getItem("accessToken")
+  const { data } = useGetProfile(token!)
 
   return (
     <Container>
       <CustumForm>
         <Title>Profile</Title>
-
 
         <CustomButton color="red" size="small">
           Change Password
@@ -24,6 +22,14 @@ const MyPage = () => {
       </CustumForm>
     </Container>
   )
+}
+
+const MyPage = () => {
+  ;<ErrorBoundary fallback={<div>Error...</div>}>
+    <Suspense fallback={<div>Loading...</div>}>
+      <MyPageContext />
+    </Suspense>
+  </ErrorBoundary>
 }
 
 export default MyPage
