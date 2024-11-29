@@ -1,3 +1,4 @@
+import { BackgroundProvider } from "./BackgroundContext"
 import { ColorModeProvider } from "./ColorModeContext"
 import { DimmingProvider } from "./DimmingProvider"
 import { EditModeProvider } from "./EditModeContext"
@@ -9,13 +10,15 @@ type ProvidersProps = {
 
 const Providers = ({ children }: ProvidersProps) => {
   return (
-    <DimmingProvider>
-      <EditModeProvider>
-        <PositionProvider>
-          <ColorModeProvider>{children}</ColorModeProvider>
-        </PositionProvider>
-      </EditModeProvider>
-    </DimmingProvider>
+    <BackgroundProvider>
+      <DimmingProvider>
+        <EditModeProvider>
+          <PositionProvider>
+            <ColorModeProvider>{children}</ColorModeProvider>
+          </PositionProvider>
+        </EditModeProvider>
+      </DimmingProvider>
+    </BackgroundProvider>
   )
 }
 

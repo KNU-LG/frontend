@@ -6,7 +6,7 @@ type ColorModeContextType = {
   toggleColorMode: () => void
 }
 
-export const ColorModeContext = createContext<ColorModeContextType | undefined>(undefined)
+const ColorModeContext = createContext<ColorModeContextType | undefined>(undefined)
 
 export const ColorModeProvider = ({ children }: { children: ReactNode }) => {
   const [colorMode, setColorMode] = useState(() => {
