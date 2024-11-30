@@ -1,23 +1,23 @@
 import { useMutation } from "@tanstack/react-query"
 
-import { APIResponse, Calendar, CalendarResponse } from "../../types"
+import { APIResponse, WidgetResponse, WidgetSend } from "../../types"
 
 import { isAxiosError } from "axios"
 
 import { fetchInstanceWithToken } from "../instance"
 
-const postCalendar = async (calendarInfo: Calendar): Promise<APIResponse<CalendarResponse>> => {
+const postCalendar = async (calendarInfo: WidgetSend): Promise<APIResponse<WidgetResponse>> => {
   const response = await fetchInstanceWithToken().post("/widget/calendar", calendarInfo)
   return response.data
 }
 
 export const usePostCalendar = () => {
   const { mutate, status } = useMutation<
-    APIResponse<CalendarResponse>,
+    APIResponse<WidgetResponse>,
     APIResponse<null>,
-    Calendar
+    WidgetSend
   >({
-    mutationFn: (calendarInfo: Calendar) => postCalendar(calendarInfo),
+    mutationFn: (calendarInfo: WidgetSend) => postCalendar(calendarInfo),
     onError: (error) => {
       if (isAxiosError(error)) {
         const errorMessage = error.response?.data?.message || "알 수 없는 오류가 발생했습니다."
