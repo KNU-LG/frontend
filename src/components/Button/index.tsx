@@ -27,12 +27,12 @@ const colorStyles = {
 const sizeStyles = {
   small: css`
     width: 200px;
-    height: 35px;
+    height: 32px;
     font-size: 14px;
   `,
   big: css`
-    width: 300px;
-    height: 35px;
+    width: 220px;
+    height: 32px;
     font-size: 14px;
   `,
 }
