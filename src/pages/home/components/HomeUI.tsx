@@ -27,7 +27,13 @@ const HomeUI = () => {
               />
             )
           case "Clock":
-            return <Clock key={widget.key} />
+            return (
+              <Clock
+                key={`Clock-${widget.key}-${widget.size}`}
+                size={widget.size}
+                widgetKey={widget.key}
+              />
+            )
           default:
             return null
         }
