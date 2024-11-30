@@ -26,7 +26,7 @@ const MyPageContext = () => {
       <BackIconWrapper onClick={handleBack}>
         <ArrowBack fontSize="inherit" />
       </BackIconWrapper>
-      <CustumForm>
+      <CustomForm>
         <Title>Profile</Title>
         <Avatar />
         <UserInfo>
@@ -48,7 +48,7 @@ const MyPageContext = () => {
             Logout
           </CustomButton>
         </ButtonWrapper>
-      </CustumForm>
+      </CustomForm>
     </Container>
   )
 }
@@ -85,7 +85,7 @@ const BackIconWrapper = styled.div`
   left: 25px;
 `
 
-const CustumForm = styled.div`
+const CustomForm = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
