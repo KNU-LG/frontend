@@ -64,10 +64,11 @@ const SignUp = () => {
 
         <CustomInput {...register("name", { required: "이름은 필수입니다." })} placeholder="Name" />
         {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
-
-        <CustomButton color="red" size="big" type="submit" disabled={status === "pending"}>
-          {status === "pending" ? "가입 처리중..." : "Create an account"}
-        </CustomButton>
+        <ButtonWrapper>
+          <CustomButton color="red" size="small" type="submit" disabled={status === "pending"}>
+            {status === "pending" ? "가입 처리중..." : "Create an account"}
+          </CustomButton>
+        </ButtonWrapper>
 
         {status === "error" && (
           <StatusMessage error>회원가입 중 오류가 발생했습니다. 다시 시도해주세요.</StatusMessage>
@@ -121,13 +122,20 @@ const Title = styled.h2`
 `
 
 const CustomInput = styled.input`
-  width: 300px;
+  width: 280px;
   height: 30px;
   margin: 10px auto 20px auto;
   padding: 0 15px;
   border: none;
   border-radius: 10px;
   background-color: #eaeaea;
+`
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  gap: 10px;
 `
 
 const ErrorMessage = styled.span`
