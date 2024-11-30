@@ -6,7 +6,7 @@ import { ColorModeToggleButton, ScreenToggleButton } from "../../components/Butt
 import { useBackgroundImage } from "../../provider/BackgroundContext"
 import { useColorMode } from "../../provider/ColorModeContext"
 import { RouterPath } from "../../routes/path"
-import HomeUI from "../Home/components/HomeUI"
+import BackgroundUI from "./components/BackgroundUI"
 import { SettingButton } from "./components/Button"
 
 const Settings = () => {
@@ -31,7 +31,7 @@ const Settings = () => {
     }
   }, [isLogin])
 
-  const { updateBackgroundImage } = useBackgroundImage()
+  const { backgroundImage, updateBackgroundImage } = useBackgroundImage()
 
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -61,9 +61,7 @@ const Settings = () => {
         <ScreenToggleButton activeScreen={activeScreen} setActiveScreen={handleActiveScreen} />
         <ColorModeToggleButton colorMode={colorMode} setColorMode={toggleColorMode} />
       </IconsWrapper>
-      <HomeUIWrapper>
-        <HomeUI />
-      </HomeUIWrapper>
+      <BackgroundUI backgroundImage={backgroundImage} />
       <IconsWrapper>
         <IconWrapper onClick={() => navigate(RouterPath.widgetsSetting)}>
           <SettingButton>
@@ -151,20 +149,7 @@ const Wrapper = styled.div`
   justify-content: center;
 `
 
-const HomeUIWrapper = styled.div`
-  border-radius: 70px;
-  background-color: rgba(217, 217, 217, 0.2);
-  width: 100%;
-  height: 70%;
-  font-size: 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
-
 const IconsWrapper = styled.div`
-  z-index: 100;
   display: flex;
   gap: 10px;
   justify-content: space-between;
@@ -175,7 +160,7 @@ const IconsWrapper = styled.div`
   color: white;
   border-top-left-radius: 70px;
   border-top-right-radius: 70px;
-  margin: 10px;
+  margin: 30px 10px;
   padding: 10px;
   line-height: 1;
   cursor: pointer;
@@ -191,7 +176,6 @@ const IconWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  color: rgba(255, 255, 255, 0.65);
   max-width: 200px;
   width: 100%;
 `
