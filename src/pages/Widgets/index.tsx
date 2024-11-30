@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import { ArrowBack } from "@mui/icons-material"
 import { useNavigate } from "react-router-dom"
+import { WidgetToggleButton } from "../../components/Button/ToggleButton"
 
 import { RouterPath } from "../../routes/path"
 import { Widget } from "../../types"
@@ -23,32 +24,57 @@ const Widgets = () => {
   }
 
   return (
-    <Wrapper>
-      <IconWrapper onClick={handleBack}>
+    <Container>
+      <BackIconWrapper onClick={handleBack}>
         <ArrowBack fontSize="inherit" />
+      </BackIconWrapper>
+      <IconWrapper>
+        <WidgetToggleButton />
       </IconWrapper>
-      <Container>
-        <Title>Calendar</Title>
-        <Calendar handleWidgetSelect={handleWidgetSelect} />
-      </Container>
-      <Container>
-        <Title>Clock</Title>
-        <Clock handleWidgetSelect={handleWidgetSelect} />
-      </Container>
-    </Wrapper>
+      <CustomForm>
+        <WidgetTitle>Calendar</WidgetTitle>
+        <WidgetContainer>
+          <Calendar handleWidgetSelect={handleWidgetSelect} />
+        </WidgetContainer>
+      </CustomForm>
+      <CustomForm>
+        <WidgetTitle>Clock</WidgetTitle>
+        <WidgetContainer>
+          <Clock handleWidgetSelect={handleWidgetSelect} />
+        </WidgetContainer>
+      </CustomForm>
+    </Container>
   )
 }
 
 export default Widgets
 
-const Wrapper = styled.div`
-  width: 90vw;
-  height: 100%;
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  padding-top: 300px;
+  background-color: #f2f2f2;
 `
 
-const Container = styled.div`
-  width: 100%;
-  height: 35%;
+const CustomForm = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70vw;
+  height: auto;
+  margin-bottom: 40px;
+  padding: 10px;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.1);
+`
+
+const WidgetContainer = styled.div`
+  width: 80%;
+  height: 70%;
   display: flex;
   margin: 20px 0;
   border: 1px solid gray;
@@ -58,13 +84,14 @@ const Container = styled.div`
   padding: 20px;
 `
 
-const Title = styled.p`
+const WidgetTitle = styled.p`
   font-size: 20px;
   font-weight: 600;
-  margin: 10px;
+  color: #616161;
+  margin: 20px;
 `
-const IconWrapper = styled.div`
-  position: absolute;
+const BackIconWrapper = styled.div`
+  position: fixed;
   flex-direction: column;
   gap: 5px;
   font-size: 40px;
@@ -73,4 +100,14 @@ const IconWrapper = styled.div`
   height: 40px;
   top: 10px;
   left: 10px;
+`
+
+const IconWrapper = styled.div`
+  position: fixed;
+  top: 25px;
+  z-index: 10;
+  align-items: center;
+  width: auto;
+  height: auto;
+  cursor: pointer;
 `
