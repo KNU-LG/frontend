@@ -16,12 +16,17 @@ const MyPageContext = () => {
     navigate(RouterPath.settings)
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken")
+    navigate(RouterPath.home)
+  }
+
   return (
     <Container>
       <BackIconWrapper onClick={handleBack}>
         <ArrowBack fontSize="inherit" />
       </BackIconWrapper>
-      <CustumForm>
+      <CustomForm>
         <Title>Profile</Title>
         <Avatar />
         <UserInfo>
@@ -39,11 +44,11 @@ const MyPageContext = () => {
           <CustomButton color="red" size="small">
             Change Password
           </CustomButton>
-          <CustomButton color="black" size="small">
+          <CustomButton color="black" size="small" onClick={handleLogout}>
             Logout
           </CustomButton>
         </ButtonWrapper>
-      </CustumForm>
+      </CustomForm>
     </Container>
   )
 }
@@ -72,21 +77,21 @@ const BackIconWrapper = styled.div`
   position: absolute;
   flex-direction: column;
   gap: 5px;
-  font-size: 40px;
+  font-size: 35px;
   cursor: pointer;
-  width: 40px;
-  height: 40px;
-  top: 10px;
-  left: 10px;
+  width: 35px;
+  height: 35px;
+  top: 25px;
+  left: 25px;
 `
 
-const CustumForm = styled.div`
+const CustomForm = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 500px;
   height: auto;
-  padding: 50px 10px;
+  padding: 50px 10px 60px 10px;
   border-radius: 15px;
   background: #fff;
   box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.1);
@@ -96,7 +101,7 @@ const Title = styled.h2`
   font-size: 24px;
   font-weight: 600;
   color: #616161;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 `
 
 const Avatar = styled.div`
@@ -111,14 +116,14 @@ const UserInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 `
 
 const Name = styled.h2`
   font-size: 18px;
   font-weight: bold;
   color: #5a5a5a;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 `
 
 const UserDetail = styled.div`

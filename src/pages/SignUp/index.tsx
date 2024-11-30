@@ -1,11 +1,19 @@
 import styled from "@emotion/styled"
 import { useForm } from "react-hook-form"
+import { ArrowBack } from "@mui/icons-material"
+import { useNavigate } from "react-router-dom"
+import { RouterPath } from "../../routes/path"
 import { usePostRegister } from "../../api/usePostRegister"
 import { Register } from "../../types"
 import CustomButton from "../../components/Button"
 
 const SignUp = () => {
   const { mutate, status } = usePostRegister()
+
+  const navigate = useNavigate()
+  const handleBack = () => {
+    navigate(RouterPath.settings)
+  }
 
   const {
     register,
@@ -27,6 +35,9 @@ const SignUp = () => {
 
   return (
     <Container>
+      <BackIconWrapper onClick={handleBack}>
+        <ArrowBack fontSize="inherit" />
+      </BackIconWrapper>
       <CustomForm onSubmit={handleSubmit(handleRegister)}>
         <Title>Sign Up</Title>
         <CustomInput
@@ -53,10 +64,11 @@ const SignUp = () => {
 
         <CustomInput {...register("name", { required: "이름은 필수입니다." })} placeholder="Name" />
         {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
-
-        <CustomButton color="red" size="big" type="submit" disabled={status === "pending"}>
-          {status === "pending" ? "가입 처리중..." : "Create an account"}
-        </CustomButton>
+        <ButtonWrapper>
+          <CustomButton color="red" size="small" type="submit" disabled={status === "pending"}>
+            {status === "pending" ? "가입 처리중..." : "Create an account"}
+          </CustomButton>
+        </ButtonWrapper>
 
         {status === "error" && (
           <StatusMessage error>회원가입 중 오류가 발생했습니다. 다시 시도해주세요.</StatusMessage>
@@ -74,39 +86,56 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  width: 100%;
-  margin: auto;
+  height: 100vh;
   background-color: #f2f2f2;
+`
+
+const BackIconWrapper = styled.div`
+  position: absolute;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 35px;
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  top: 25px;
+  left: 25px;
 `
 
 const CustomForm = styled.form`
   display: flex;
   flex-direction: column;
-  width: 45%;
+  align-items: center;
   width: 500px;
-  height: 500px;
-  padding: 60px 10px;
+  height: auto;
+  padding: 50px 10px 60px 10px;
   border-radius: 15px;
   background: #fff;
   box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.1);
-  text-align: center;
 `
 
 const Title = styled.h2`
   font-size: 24px;
   font-weight: 600;
   color: #616161;
+  margin-bottom: 40px;
 `
 
 const CustomInput = styled.input`
-  width: 350px;
-  height: 130px;
-  margin: 15px auto;
+  width: 280px;
+  height: 30px;
+  margin: 10px auto 20px auto;
   padding: 0 15px;
   border: none;
   border-radius: 10px;
   background-color: #eaeaea;
+`
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  gap: 10px;
 `
 
 const ErrorMessage = styled.span`
