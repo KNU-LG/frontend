@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { RouterPath } from "../../routes/path"
 import { Widget } from "../../types"
 import Calendar from "./components/Calendar"
+import Clock from "./components/Clock"
 
 const Widgets = () => {
   const navigate = useNavigate()
@@ -29,6 +30,10 @@ const Widgets = () => {
       <Container>
         <Title>Calendar</Title>
         <Calendar handleWidgetSelect={handleWidgetSelect} />
+      </Container>
+      <Container>
+        <Title>Clock</Title>
+        <Clock handleWidgetSelect={handleWidgetSelect} />
       </Container>
     </Wrapper>
   )
