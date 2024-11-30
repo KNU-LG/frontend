@@ -1,24 +1,22 @@
 import styled from "@emotion/styled"
-import {
-  AddPhotoAlternate,
-  ArrowBack,
-  Delete,
-  Image,
-  LightMode,
-  Person,
-  Widgets,
-} from "@mui/icons-material"
+import { AddPhotoAlternate, ArrowBack, Delete, Person, Widgets } from "@mui/icons-material"
 import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { ColorModeToggleButton, ScreenToggleButton } from "../../components/Button/ToggleButton"
 import { useBackgroundImage } from "../../provider/BackgroundContext"
 import { useColorMode } from "../../provider/ColorModeContext"
 import { RouterPath } from "../../routes/path"
 import HomeUI from "../Home/components/HomeUI"
+import { SettingButton } from "./components/Button"
 
 const Settings = () => {
   const navigate = useNavigate()
   const { colorMode, toggleColorMode } = useColorMode()
   const [isLogin, setIsLogin] = useState(false)
+  const [activeScreen, setActiveScreen] = useState<"widget" | "image">("widget")
+  const handleActiveScreen = () => {
+    setActiveScreen(activeScreen === "widget" ? "image" : "widget")
+  }
 
   const handleBack = () => {
     navigate(RouterPath.home)
@@ -60,28 +58,43 @@ const Settings = () => {
         <ArrowBack fontSize="inherit" />
       </BackIconWrapper>
       <IconsWrapper>
-        <IconWrapper>
-          <Delete fontSize="inherit" onClick={() => navigate(RouterPath.widgetsSetting)} />
-          <Font>위젯 편집</Font>
-        </IconWrapper>
-
-        <IconWrapper onClick={() => navigate(RouterPath.imageSlides)}>
-          <Image fontSize="inherit" />
-          <Font>이미지 슬라이드쇼</Font>
-        </IconWrapper>
-
-        <IconWrapper onClick={toggleColorMode}>
-          <LightMode fontSize="inherit" />
-          <Font>{colorMode === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}</Font>
-        </IconWrapper>
+        <ScreenToggleButton activeScreen={activeScreen} setActiveScreen={handleActiveScreen} />
+        <ColorModeToggleButton colorMode={colorMode} setColorMode={toggleColorMode} />
       </IconsWrapper>
       <HomeUIWrapper>
         <HomeUI />
       </HomeUIWrapper>
       <IconsWrapper>
+        <IconWrapper onClick={() => navigate(RouterPath.widgetsSetting)}>
+          <SettingButton>
+            <SettingButtonWrapper>
+              <Delete
+                style={{
+                  fontSize: "30px",
+                  width: "30px",
+                  height: "30px",
+                  fill: "var(--color-black)",
+                }}
+              />
+              <Text>Edit</Text>
+            </SettingButtonWrapper>
+          </SettingButton>
+        </IconWrapper>
+
         <IconWrapper onClick={handleImageClick}>
-          <AddPhotoAlternate fontSize="inherit" />
-          <Font>이미지</Font>
+          <SettingButton>
+            <SettingButtonWrapper>
+              <AddPhotoAlternate
+                style={{
+                  fontSize: "30px",
+                  width: "30px",
+                  height: "30px",
+                  fill: "var(--color-black)",
+                }}
+              />
+              <Text>Background</Text>
+            </SettingButtonWrapper>
+          </SettingButton>
           <HiddenInput
             ref={fileInputRef}
             type="file"
@@ -91,14 +104,36 @@ const Settings = () => {
         </IconWrapper>
 
         <IconWrapper onClick={() => navigate(RouterPath.widgets)}>
-          <Widgets fontSize="inherit" />
-          <Font>위젯</Font>
+          <SettingButton>
+            <SettingButtonWrapper>
+              <Widgets
+                style={{
+                  fontSize: "30px",
+                  width: "30px",
+                  height: "30px",
+                  fill: "var(--color-black)",
+                }}
+              />
+              <Text>Widget</Text>
+            </SettingButtonWrapper>
+          </SettingButton>
         </IconWrapper>
         <IconWrapper
           onClick={() => (isLogin ? navigate(RouterPath.myPage) : navigate(RouterPath.login))}
         >
-          <Person fontSize="inherit" />
-          <Font>프로필</Font>
+          <SettingButton>
+            <SettingButtonWrapper>
+              <Person
+                style={{
+                  fontSize: "30px",
+                  width: "30px",
+                  height: "30px",
+                  fill: "var(--color-black)",
+                }}
+              />
+              <Text>Profile</Text>
+            </SettingButtonWrapper>
+          </SettingButton>
         </IconWrapper>
       </IconsWrapper>
     </Wrapper>
@@ -131,6 +166,7 @@ const HomeUIWrapper = styled.div`
 const IconsWrapper = styled.div`
   z-index: 100;
   display: flex;
+  gap: 10px;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -144,18 +180,22 @@ const IconsWrapper = styled.div`
   line-height: 1;
   cursor: pointer;
 `
+const SettingButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-dark-gray);
+`
 
 const IconWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
   color: rgba(255, 255, 255, 0.65);
+  max-width: 200px;
+  width: 100%;
 `
 
-const Font = styled.p`
-  font-size: 20px;
-  font-weight: 600;
-`
 const BackIconWrapper = styled.div`
   position: absolute;
   flex-direction: column;
@@ -169,4 +209,10 @@ const BackIconWrapper = styled.div`
 `
 const HiddenInput = styled.input`
   display: none;
+`
+const Text = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
 `
