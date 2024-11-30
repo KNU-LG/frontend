@@ -41,7 +41,7 @@ export type Widget = {
   key: number
 }
 
-export type CalendarResponse = {
+export type WidgetResponse = {
   id: number
   settingCommon: {
     id: number
@@ -51,12 +51,33 @@ export type CalendarResponse = {
   }
 }
 
-export type Calendar = {
+export type WidgetSend = {
   settingCommon: {
     positionX: number
     positionY: number
     size: "L" | "M" | "S"
   }
+}
+
+export type ClockSend = {
+  settingCommon: {
+    positionX: number
+    positionY: number
+    size: "L" | "M" | "S"
+  }
+  timezone: string
+}
+
+export type ClockResponse = {
+  id: number
+  settingCommon: {
+    id: number
+    positionX: number
+    positionY: number
+    size: "L" | "M" | "S"
+  }
+  timeZone: string
+  design: string
 }
 
 export type ProfileResponse = {
