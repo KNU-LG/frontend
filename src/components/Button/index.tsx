@@ -26,14 +26,14 @@ const colorStyles = {
 
 const sizeStyles = {
   small: css`
-    width: 150px;
-    height: 35px;
+    width: 200px;
+    height: 32px;
     font-size: 14px;
   `,
   big: css`
-    width: 230px;
-    height: 35px;
-    font-size: 16px;
+    width: 220px;
+    height: 32px;
+    font-size: 14px;
   `,
 }
 
