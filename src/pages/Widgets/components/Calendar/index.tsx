@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
-import { usePostCalendar } from "../../../api/calendar/usePostCalendar"
-import { CalendarUI } from "../../../components/WidgetsUI/CalendarUI"
-import { Widget } from "../../../types"
+import { usePostCalendar } from "../../../../api/calendar/usePostCalendar"
+import { CalendarUI } from "../../../../components/WidgetsUI/CalendarUI"
+import { Widget } from "../../../../types"
 
 type WidgetProps = {
   handleWidgetSelect: (widget: Widget) => void
