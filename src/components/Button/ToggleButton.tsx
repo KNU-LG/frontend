@@ -10,6 +10,10 @@ type ScreenToggleProps = {
   setActiveScreen: () => void
 }
 
+type WidgetToggleProps = {
+  activeWidget?: "calendar" | "clock"
+}
+
 export const ColorModeToggleButton = ({ colorMode, setColorMode }: ColorModeToggleProps) => {
   return (
     <ToggleWrapper>
@@ -42,6 +46,24 @@ export const ScreenToggleButton = ({ activeScreen, setActiveScreen }: ScreenTogg
           </ScreenText>
         </TextGroup>
       </ScreenButton>
+    </ToggleWrapper>
+  )
+}
+
+export const WidgetToggleButton = ({ activeWidget = "calendar" }: WidgetToggleProps) => {
+  return (
+    <ToggleWrapper>
+      <ColorModeButton colorMode={activeWidget}>
+        <ColorModeSlider colorMode={activeWidget} />
+        <TextGroup>
+          <ColorModeText colorMode={activeWidget} isActive={activeWidget === "calendar"}>
+            Calendar
+          </ColorModeText>
+          <ColorModeText colorMode={activeWidget} isActive={activeWidget === "clock"}>
+            Clock
+          </ColorModeText>
+        </TextGroup>
+      </ColorModeButton>
     </ToggleWrapper>
   )
 }
