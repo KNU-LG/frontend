@@ -77,12 +77,12 @@ const BackIconWrapper = styled.div`
   position: absolute;
   flex-direction: column;
   gap: 5px;
-  font-size: 40px;
+  font-size: 35px;
   cursor: pointer;
-  width: 40px;
-  height: 40px;
-  top: 10px;
-  left: 10px;
+  width: 35px;
+  height: 35px;
+  top: 25px;
+  left: 25px;
 `
 
 const CustumForm = styled.div`
