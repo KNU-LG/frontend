@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import { useEffect, useState } from "react"
+import defaultBackground from "../../../assets/defaultBackground.svg"
 import { Calendar } from "../../../components/Widgets/Calendar"
 import { Clock } from "../../../components/Widgets/Clock"
 import { useBackgroundImage } from "../../../provider/BackgroundContext"
@@ -48,7 +49,7 @@ const Container = styled.div<{ backgroundImage?: string }>`
   width: 100%;
   height: 100%;
   background-image: ${({ backgroundImage }) =>
-    backgroundImage ? `url(${backgroundImage})` : "none"};
+    backgroundImage ? `url(${backgroundImage})` : `url(${defaultBackground})`};
   background-size: cover;
   background-position: center;
   border-radius: 70px;
