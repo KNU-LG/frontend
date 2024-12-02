@@ -18,8 +18,9 @@ const HomePage = () => {
 export default HomePage
 
 const SettingIcon = styled(Settings)`
-  display: flex;
-  align-items: flex-start;
+  position: absolute;
+  top: 5px;
+  right: 5px;
   height: auto;
   margin: 0;
   padding: 0;
