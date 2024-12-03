@@ -56,12 +56,12 @@ const Settings = () => {
   return (
     <Wrapper>
       <BackButton handleBack={handleBack} />
-      <IconsWrapper>
+      <IconsWrapperTop>
         <ScreenToggleButton activeScreen={activeScreen} setActiveScreen={handleActiveScreen} />
         <ColorModeToggleButton colorMode={colorMode} setColorMode={toggleColorMode} />
-      </IconsWrapper>
+      </IconsWrapperTop>
       <BackgroundUI backgroundImage={backgroundImage} />
-      <IconsWrapper>
+      <IconsWrapperBottom>
         <IconWrapper onClick={() => navigate(RouterPath.widgetsSetting)}>
           <SettingButton>
             <SettingButtonWrapper>
@@ -132,7 +132,7 @@ const Settings = () => {
             </SettingButtonWrapper>
           </SettingButton>
         </IconWrapper>
-      </IconsWrapper>
+      </IconsWrapperBottom>
     </Wrapper>
   )
 }
@@ -148,7 +148,7 @@ const Wrapper = styled.div`
   justify-content: center;
 `
 
-const IconsWrapper = styled.div`
+const IconsWrapperTop = styled.div`
   display: flex;
   gap: 10px;
   justify-content: space-between;
@@ -156,14 +156,24 @@ const IconsWrapper = styled.div`
   width: 100%;
   height: auto;
   font-size: 50px;
-  color: white;
-  border-top-left-radius: 70px;
-  border-top-right-radius: 70px;
-  margin: 30px 10px;
-  padding: 10px;
+  margin: 0px 10px 50px 10px;
   line-height: 1;
   cursor: pointer;
 `
+const IconsWrapperBottom = styled.div`
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  font-size: 50px;
+  margin: 50px 10px 0px 10px;
+  padding: 0px 10px;
+  line-height: 1;
+  cursor: pointer;
+`
+
 const SettingButtonWrapper = styled.div`
   display: flex;
   align-items: center;
