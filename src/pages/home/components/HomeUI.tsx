@@ -52,5 +52,4 @@ const Container = styled.div<{ backgroundImage?: string }>`
     backgroundImage ? `url(${backgroundImage})` : `url(${defaultBackground})`};
   background-size: cover;
   background-position: center;
-  border-radius: 70px;
 `
