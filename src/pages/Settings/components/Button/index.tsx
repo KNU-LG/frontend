@@ -11,11 +11,10 @@ export const SettingButton = styled.button`
   cursor: pointer;
   font-weight: 600;
   max-width: 220px;
-  height: 32px;
+  height: 40px;
   font-size: 18px;
 
   width: 100%;
-  height: 55px;
   color: (--color-dark-gray);
   transition: all 0.3s;
   &:hover {
