@@ -41,9 +41,9 @@ export const Calendar = ({ size, widgetKey }: CalendarProp) => {
   }
 
   const dimensions = {
-    L: { width: 200, height: 200 },
-    M: { width: 150, height: 150 },
-    S: { width: 100, height: 100 },
+    L: { width: 200, height: 130 },
+    M: { width: 150, height: 100 },
+    S: { width: 100, height: 80 },
   }
 
   const widgetWidth = dimensions[size].width
