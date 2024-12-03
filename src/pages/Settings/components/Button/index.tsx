@@ -9,9 +9,11 @@ export const SettingButton = styled.button`
   padding: 10px 20px;
   border-radius: 10px;
   cursor: pointer;
-  font-size: 18px;
   font-weight: 600;
-  max-width: 200px;
+  max-width: 220px;
+  height: 32px;
+  font-size: 18px;
+
   width: 100%;
   height: 55px;
   color: (--color-dark-gray);
