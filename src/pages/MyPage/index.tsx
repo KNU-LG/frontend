@@ -1,17 +1,18 @@
 import styled from "@emotion/styled"
 import { Suspense } from "react"
-import { ArrowBack } from "@mui/icons-material"
-import { useNavigate } from "react-router-dom"
-import { RouterPath } from "../../routes/path"
 import { ErrorBoundary } from "react-error-boundary"
+import { useNavigate } from "react-router-dom"
 import { useGetProfile } from "../../api/useGetProfile"
 import CustomButton from "../../components/Button"
+import BackButton from "../../components/Button/BackButton"
+import { RouterPath } from "../../routes/path"
 
 const MyPageContext = () => {
   const token = localStorage.getItem("accessToken")
   const { data } = useGetProfile(token!)
 
   const navigate = useNavigate()
+
   const handleBack = () => {
     navigate(RouterPath.settings)
   }
@@ -23,9 +24,7 @@ const MyPageContext = () => {
 
   return (
     <Container>
-      <BackIconWrapper onClick={handleBack}>
-        <ArrowBack fontSize="inherit" />
-      </BackIconWrapper>
+      <BackButton handleBack={handleBack} />
       <CustomForm>
         <Title>Profile</Title>
         <Avatar />
@@ -71,18 +70,6 @@ const Container = styled.div`
   align-items: center;
   height: 100vh;
   background-color: #f2f2f2;
-`
-
-const BackIconWrapper = styled.div`
-  position: absolute;
-  flex-direction: column;
-  gap: 5px;
-  font-size: 35px;
-  cursor: pointer;
-  width: 35px;
-  height: 35px;
-  top: 25px;
-  left: 25px;
 `
 
 const CustomForm = styled.div`

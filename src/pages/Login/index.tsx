@@ -1,11 +1,11 @@
 import styled from "@emotion/styled"
-import { ArrowBack } from "@mui/icons-material"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 import { usePostLogin } from "../../api/usePostLogin"
+import CustomButton from "../../components/Button"
+import BackButton from "../../components/Button/BackButton"
 import { RouterPath } from "../../routes/path"
 import { Login } from "../../types"
-import CustomButton from "../../components/Button"
 
 const LoginForm = () => {
   const { mutate, status } = usePostLogin()
@@ -32,9 +32,7 @@ const LoginForm = () => {
   }
   return (
     <Container>
-      <BackIconWrapper onClick={handleBack}>
-        <ArrowBack fontSize="inherit" />
-      </BackIconWrapper>
+      <BackButton handleBack={handleBack} />
       <CustomForm onSubmit={handleSubmit(handleLogin)}>
         <Title>Login</Title>
         <CustomInput
@@ -75,18 +73,6 @@ const Container = styled.div`
   align-items: center;
   height: 100vh;
   background-color: #f2f2f2;
-`
-
-const BackIconWrapper = styled.div`
-  position: absolute;
-  flex-direction: column;
-  gap: 5px;
-  font-size: 35px;
-  cursor: pointer;
-  width: 35px;
-  height: 35px;
-  top: 25px;
-  left: 25px;
 `
 
 const CustomForm = styled.form`

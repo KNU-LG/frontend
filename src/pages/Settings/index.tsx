@@ -1,7 +1,8 @@
 import styled from "@emotion/styled"
-import { AddPhotoAlternate, ArrowBack, Delete, Person, Widgets } from "@mui/icons-material"
+import { AddPhotoAlternate, Delete, Person, Widgets } from "@mui/icons-material"
 import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import BackButton from "../../components/Button/BackButton"
 import { ColorModeToggleButton, ScreenToggleButton } from "../../components/Button/ToggleButton"
 import { useBackgroundImage } from "../../provider/BackgroundContext"
 import { useColorMode } from "../../provider/ColorModeContext"
@@ -16,10 +17,6 @@ const Settings = () => {
   const [activeScreen, setActiveScreen] = useState<"widget" | "image">("widget")
   const handleActiveScreen = () => {
     setActiveScreen(activeScreen === "widget" ? "image" : "widget")
-  }
-
-  const handleBack = () => {
-    navigate(RouterPath.home)
   }
 
   useEffect(() => {
@@ -52,17 +49,19 @@ const Settings = () => {
     fileInputRef.current?.click()
   }
 
+  const handleBack = () => {
+    navigate(RouterPath.home)
+  }
+
   return (
     <Wrapper>
-      <BackIconWrapper onClick={handleBack}>
-        <ArrowBack fontSize="inherit" />
-      </BackIconWrapper>
-      <IconsWrapper>
+      <BackButton handleBack={handleBack} />
+      <IconsWrapperTop>
         <ScreenToggleButton activeScreen={activeScreen} setActiveScreen={handleActiveScreen} />
         <ColorModeToggleButton colorMode={colorMode} setColorMode={toggleColorMode} />
-      </IconsWrapper>
+      </IconsWrapperTop>
       <BackgroundUI backgroundImage={backgroundImage} />
-      <IconsWrapper>
+      <IconsWrapperBottom>
         <IconWrapper onClick={() => navigate(RouterPath.widgetsSetting)}>
           <SettingButton>
             <SettingButtonWrapper>
@@ -133,7 +132,7 @@ const Settings = () => {
             </SettingButtonWrapper>
           </SettingButton>
         </IconWrapper>
-      </IconsWrapper>
+      </IconsWrapperBottom>
     </Wrapper>
   )
 }
@@ -149,7 +148,7 @@ const Wrapper = styled.div`
   justify-content: center;
 `
 
-const IconsWrapper = styled.div`
+const IconsWrapperTop = styled.div`
   display: flex;
   gap: 10px;
   justify-content: space-between;
@@ -157,14 +156,24 @@ const IconsWrapper = styled.div`
   width: 100%;
   height: auto;
   font-size: 50px;
-  color: white;
-  border-top-left-radius: 70px;
-  border-top-right-radius: 70px;
-  margin: 30px 10px;
-  padding: 10px;
+  margin: 0px 10px 50px 10px;
   line-height: 1;
   cursor: pointer;
 `
+const IconsWrapperBottom = styled.div`
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  font-size: 50px;
+  margin: 50px 10px 0px 10px;
+  padding: 0px 10px;
+  line-height: 1;
+  cursor: pointer;
+`
+
 const SettingButtonWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -178,18 +187,6 @@ const IconWrapper = styled.div`
   gap: 5px;
   max-width: 200px;
   width: 100%;
-`
-
-const BackIconWrapper = styled.div`
-  position: absolute;
-  flex-direction: column;
-  gap: 5px;
-  font-size: 40px;
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  top: 10px;
-  left: 10px;
 `
 const HiddenInput = styled.input`
   display: none;

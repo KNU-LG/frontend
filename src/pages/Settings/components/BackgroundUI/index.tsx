@@ -3,8 +3,8 @@ import defaultBackground from "../../../../assets/defaultBackground.svg"
 
 const BackgroundUI = styled.div<{ backgroundImage: string }>`
   border-radius: 70px;
-  width: 100%;
-  height: 70%;
+  height: 60%;
+  aspect-ratio: 1.7/1;
   font-size: 50px;
   display: flex;
   flex-direction: column;
