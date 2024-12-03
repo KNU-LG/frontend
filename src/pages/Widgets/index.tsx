@@ -1,8 +1,8 @@
 import styled from "@emotion/styled"
-import { ArrowBack } from "@mui/icons-material"
 import { useNavigate } from "react-router-dom"
 import { WidgetToggleButton } from "../../components/Button/ToggleButton"
 
+import BackButton from "../../components/Button/BackButton"
 import { RouterPath } from "../../routes/path"
 import { Widget } from "../../types"
 import Calendar from "./components/Calendar"
@@ -25,9 +25,7 @@ const Widgets = () => {
 
   return (
     <Container>
-      <BackIconWrapper onClick={handleBack}>
-        <ArrowBack fontSize="inherit" />
-      </BackIconWrapper>
+      <BackButton handleBack={handleBack} />
       <IconWrapper>
         <WidgetToggleButton />
       </IconWrapper>
@@ -89,17 +87,6 @@ const WidgetTitle = styled.p`
   font-weight: 600;
   color: #616161;
   margin: 20px;
-`
-const BackIconWrapper = styled.div`
-  position: fixed;
-  flex-direction: column;
-  gap: 5px;
-  font-size: 40px;
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  top: 10px;
-  left: 10px;
 `
 
 const IconWrapper = styled.div`

@@ -1,7 +1,8 @@
 import styled from "@emotion/styled"
-import { AddPhotoAlternate, ArrowBack, Delete, Person, Widgets } from "@mui/icons-material"
+import { AddPhotoAlternate, Delete, Person, Widgets } from "@mui/icons-material"
 import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import BackButton from "../../components/Button/BackButton"
 import { ColorModeToggleButton, ScreenToggleButton } from "../../components/Button/ToggleButton"
 import { useBackgroundImage } from "../../provider/BackgroundContext"
 import { useColorMode } from "../../provider/ColorModeContext"
@@ -16,10 +17,6 @@ const Settings = () => {
   const [activeScreen, setActiveScreen] = useState<"widget" | "image">("widget")
   const handleActiveScreen = () => {
     setActiveScreen(activeScreen === "widget" ? "image" : "widget")
-  }
-
-  const handleBack = () => {
-    navigate(RouterPath.home)
   }
 
   useEffect(() => {
@@ -52,11 +49,13 @@ const Settings = () => {
     fileInputRef.current?.click()
   }
 
+  const handleBack = () => {
+    navigate(RouterPath.home)
+  }
+
   return (
     <Wrapper>
-      <BackIconWrapper onClick={handleBack}>
-        <ArrowBack fontSize="inherit" />
-      </BackIconWrapper>
+      <BackButton handleBack={handleBack} />
       <IconsWrapper>
         <ScreenToggleButton activeScreen={activeScreen} setActiveScreen={handleActiveScreen} />
         <ColorModeToggleButton colorMode={colorMode} setColorMode={toggleColorMode} />
@@ -178,18 +177,6 @@ const IconWrapper = styled.div`
   gap: 5px;
   max-width: 200px;
   width: 100%;
-`
-
-const BackIconWrapper = styled.div`
-  position: absolute;
-  flex-direction: column;
-  gap: 5px;
-  font-size: 40px;
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  top: 10px;
-  left: 10px;
 `
 const HiddenInput = styled.input`
   display: none;
