@@ -10,7 +10,7 @@ export const SettingButton = styled.button`
   border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
-  max-width: 220px;
+  max-width: 240px;
   height: 40px;
   font-size: 18px;
   box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.1);
@@ -18,6 +18,6 @@ export const SettingButton = styled.button`
   color: (--color-dark-gray);
   transition: all 0.3s;
   &:hover {
-    background-color: #e2e2e2;
+    background-color: #eaeaea;
   }
 `
