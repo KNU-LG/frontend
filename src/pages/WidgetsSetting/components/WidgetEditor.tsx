@@ -63,4 +63,8 @@ const CustomSettingButton = styled(SettingButton)<{ cancel?: boolean; fullWidth?
   flex: ${(props) => (props.fullWidth ? "1" : "0.5")};
   background-color: ${(props) => (props.cancel ? "white" : "#A50034")};
   color: ${(props) => (props.cancel ? "#333" : "white")};
+  &:hover {
+    opacity: ${(props) => (props.cancel ? "1" : "0.8")};
+    background-color: ${(props) => (props.cancel ? "#e2e2e2" : "#A50034")};
+  }
 `
