@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import defaultBackground from "../../../../assets/defaultBackground.svg"
 
 const BackgroundUI = styled.div<{ backgroundImage: string }>`
-  border-radius: 70px;
+  border-radius: 30px;
   height: 60%;
   aspect-ratio: 1.7/1;
   font-size: 50px;

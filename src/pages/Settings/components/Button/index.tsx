@@ -13,7 +13,7 @@ export const SettingButton = styled.button`
   max-width: 220px;
   height: 40px;
   font-size: 18px;
-
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.1);
   width: 100%;
   color: (--color-dark-gray);
   transition: all 0.3s;

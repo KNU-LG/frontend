@@ -57,8 +57,14 @@ const Settings = () => {
     <Wrapper>
       <BackButton handleBack={handleBack} />
       <IconsWrapperTop>
-        <ScreenToggleButton activeScreen={activeScreen} setActiveScreen={handleActiveScreen} />
-        <ColorModeToggleButton colorMode={colorMode} setColorMode={toggleColorMode} />
+        <LabelWrapper>
+          <Label>Screen</Label>
+          <ScreenToggleButton activeScreen={activeScreen} setActiveScreen={handleActiveScreen} />
+        </LabelWrapper>
+        <LabelWrapper>
+          <Label>Mode</Label>
+          <ColorModeToggleButton colorMode={colorMode} setColorMode={toggleColorMode} />
+        </LabelWrapper>
       </IconsWrapperTop>
       <BackgroundUI backgroundImage={backgroundImage} />
       <IconsWrapperBottom>
@@ -68,8 +74,8 @@ const Settings = () => {
               <Delete
                 style={{
                   fontSize: "30px",
-                  width: "30px",
-                  height: "30px",
+                  width: "20px",
+                  height: "20px",
                   fill: "var(--color-black)",
                 }}
               />
@@ -84,8 +90,8 @@ const Settings = () => {
               <AddPhotoAlternate
                 style={{
                   fontSize: "30px",
-                  width: "30px",
-                  height: "30px",
+                  width: "22px",
+                  height: "22px",
                   fill: "var(--color-black)",
                 }}
               />
@@ -106,8 +112,8 @@ const Settings = () => {
               <Widgets
                 style={{
                   fontSize: "30px",
-                  width: "30px",
-                  height: "30px",
+                  width: "20px",
+                  height: "20px",
                   fill: "var(--color-black)",
                 }}
               />
@@ -123,8 +129,8 @@ const Settings = () => {
               <Person
                 style={{
                   fontSize: "30px",
-                  width: "30px",
-                  height: "30px",
+                  width: "20px",
+                  height: "20px",
                   fill: "var(--color-black)",
                 }}
               />
@@ -153,23 +159,39 @@ const IconsWrapperTop = styled.div`
   gap: 10px;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 80%;
   height: auto;
   font-size: 50px;
   margin: 0px 10px 50px 10px;
   line-height: 1;
   cursor: pointer;
 `
+
+const LabelWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  height: auto;
+`
+
+const Label = styled.span`
+  font-size: 20px;
+  font-weight: 550;
+  color: var(--color-dark-gray);
+  align-items: center;
+  height: 100%;
+`
+
 const IconsWrapperBottom = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 2px;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   height: auto;
   font-size: 50px;
   margin: 50px 10px 0px 10px;
-  padding: 0px 10px;
+  padding: 0px 20px;
   line-height: 1;
   cursor: pointer;
 `
@@ -196,4 +218,5 @@ const Text = styled.p`
   align-items: center;
   justify-content: center;
   color: inherit;
+  font-size: 16px;
 `

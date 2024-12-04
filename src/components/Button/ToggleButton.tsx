@@ -73,7 +73,7 @@ const ToggleWrapper = styled.div`
   align-items: center;
   justify-content: center;
   height: 40px;
-  width: 220px;
+  width: 240px;
 `
 
 const ColorModeButton = styled.button<{ colorMode: string }>`
@@ -98,7 +98,7 @@ const ColorModeSlider = styled.div<{ colorMode: string }>`
   width: calc(50% - 4px);
   border-radius: 16px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transform: translateX(${(props) => (props.colorMode === "dark" ? "calc(100% - 4px)" : "4px")});
+  transform: translateX(${(props) => (props.colorMode === "dark" ? "calc(100% - 2px)" : "1px")});
   background-color: ${(props) =>
     props.colorMode === "dark" ? "var(--color-dark-gray)" : "var(--color-white)"};
   transition: transform 0.3s ease;
@@ -125,7 +125,7 @@ const ScreenSlider = styled.div<{ activeScreen: "widget" | "image" }>`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: var(--color-red);
   transform: translateX(
-    ${(props) => (props.activeScreen === "image" ? "calc(100% - 4px)" : "4px")}
+    ${(props) => (props.activeScreen === "image" ? "calc(100% - 2px)" : "1px")}
   );
   transition: transform 0.3s ease;
 `
@@ -140,8 +140,8 @@ const TextGroup = styled.div`
 `
 
 const ColorModeText = styled.span<{ colorMode: string; isActive: boolean }>`
-  font-size: 14px;
-  font-weight: 800;
+  font-size: 16px;
+  font-weight: 750;
   color: ${(props) =>
     props.isActive
       ? props.colorMode === "dark"
@@ -160,8 +160,8 @@ const ColorModeText = styled.span<{ colorMode: string; isActive: boolean }>`
 `
 
 const ScreenText = styled.span<{ isActive: boolean }>`
-  font-size: 14px;
-  font-weight: 800;
+  font-size: 16px;
+  font-weight: 750;
   color: ${(props) => (props.isActive ? "var(--color-white)" : "var(--color-dark-gray)")};
   transition: color 0.3s ease;
   z-index: 1;
