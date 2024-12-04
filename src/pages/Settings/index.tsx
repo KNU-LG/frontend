@@ -175,7 +175,7 @@ const LabelWrapper = styled.div`
 `
 
 const Label = styled.span`
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 550;
   color: var(--color-dark-gray);
   align-items: center;
