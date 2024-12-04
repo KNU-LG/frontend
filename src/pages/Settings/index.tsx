@@ -57,8 +57,14 @@ const Settings = () => {
     <Wrapper>
       <BackButton handleBack={handleBack} />
       <IconsWrapperTop>
-        <ScreenToggleButton activeScreen={activeScreen} setActiveScreen={handleActiveScreen} />
-        <ColorModeToggleButton colorMode={colorMode} setColorMode={toggleColorMode} />
+        <LabelWrapper>
+          <Label>Screen</Label>
+          <ScreenToggleButton activeScreen={activeScreen} setActiveScreen={handleActiveScreen} />
+        </LabelWrapper>
+        <LabelWrapper>
+          <Label>Mode</Label>
+          <ColorModeToggleButton colorMode={colorMode} setColorMode={toggleColorMode} />
+        </LabelWrapper>
       </IconsWrapperTop>
       <BackgroundUI backgroundImage={backgroundImage} />
       <IconsWrapperBottom>
@@ -160,6 +166,22 @@ const IconsWrapperTop = styled.div`
   line-height: 1;
   cursor: pointer;
 `
+
+const LabelWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  height: auto;
+`
+
+const Label = styled.span`
+  font-size: 18px;
+  font-weight: 550;
+  color: var(--color-dark-gray);
+  align-items: center;
+  height: 100%;
+`
+
 const IconsWrapperBottom = styled.div`
   display: flex;
   gap: 2px;
