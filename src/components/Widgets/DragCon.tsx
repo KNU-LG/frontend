@@ -1,10 +1,4 @@
-import styled from "@emotion/styled"
-import React, { useEffect } from "react"
-import { animated, useSpring } from "react-spring"
-import { useDrag } from "react-use-gesture"
-import { useEditMode } from "../../provider/EditModeContext"
-import { usePosition } from "../../provider/PositionContext"
-
+// types.ts
 interface DragConProps {
   name: string
   widgetHeight: number
@@ -17,6 +11,15 @@ interface WrapperProps {
   width: number
   height: number
 }
+
+// DragCon.tsx
+import styled from "@emotion/styled"
+import React, { useEffect } from "react"
+import { animated, useSpring } from "react-spring"
+import { useDrag } from "react-use-gesture"
+import { useEditMode } from "../../provider/EditModeContext"
+import { usePosition } from "../../provider/PositionContext"
+
 export const DragCon = (dragProps: DragConProps) => {
   const { positions, updatePosition, isLoading } = usePosition()
   const { isEditMode } = useEditMode()
@@ -69,11 +72,11 @@ export const DragCon = (dragProps: DragConProps) => {
 
   return (
     <Wrapper
-      {...(isEditMode ? bindPos() : {})} // 편집 모드일 때만 드래그 이벤트 바인딩
+      {...(isEditMode ? bindPos() : {})}
       style={{
         ...props,
-        cursor: isEditMode ? "grab" : "default", // 편집 모드일 때만 grab 커서
-        border: isEditMode ? "2px dashed #666" : "2px solid #666", // 편집 모드일 때 테두리 표시
+        cursor: isEditMode ? "grab" : "default",
+        border: isEditMode ? "2px dashed #666" : "none",
       }}
       width={dragProps.widgetWidth}
       height={dragProps.widgetHeight}
@@ -90,8 +93,9 @@ const Wrapper = styled(animated.div)<WrapperProps>`
   height: ${(props) => props.height}px;
   left: 10vw;
   top: 0;
-  border: 1px solid white;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 15px;
+  background: transparent;
 `
