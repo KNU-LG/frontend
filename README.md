@@ -124,7 +124,19 @@ Install the app onto the webOS emulator using the above command. After installat
 
 ### Raspberry Pi
 
-_(Instructions to be added)_
+* ensure that you already has some ipk file from repository build command.
+
+> ares-setup-devices
+
+before command it, Check your device connected at same network. (I recommand just you can use mobile hospot)
+
+<img width="642" alt="image" src="https://github.com/user-attachments/assets/812a4d48-75fb-431e-8b04-61f8c77c43b7">
+
+manually add your device information.
+
+> ares-install app.ipk -d TARGET_DEVICE
+
+TARGET_DEVICE is input value of Device Name at previous command.
 
 ## License
 
