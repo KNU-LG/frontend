@@ -11,7 +11,8 @@ type ScreenToggleProps = {
 }
 
 type WidgetToggleProps = {
-  activeWidget?: "calendar" | "clock"
+  activeWidget: "calendar" | "clock" | "music" | "weather"
+  setActiveWidget: (widget: "calendar" | "clock" | "music" | "weather") => void
 }
 
 export const ColorModeToggleButton = ({ colorMode, setColorMode }: ColorModeToggleProps) => {
@@ -50,20 +51,32 @@ export const ScreenToggleButton = ({ activeScreen, setActiveScreen }: ScreenTogg
   )
 }
 
-export const WidgetToggleButton = ({ activeWidget = "calendar" }: WidgetToggleProps) => {
+export const WidgetToggleButton = ({ activeWidget, setActiveWidget }: WidgetToggleProps) => {
   return (
     <ToggleWrapper>
-      <ColorModeButton colorMode={activeWidget}>
-        <ColorModeSlider colorMode={activeWidget} />
+      <WidgetButton>
+        <WidgetSlider activeWidget={activeWidget} />
         <TextGroup>
-          <ColorModeText colorMode={activeWidget} isActive={activeWidget === "calendar"}>
+          <WidgetText
+            isActive={activeWidget === "calendar"}
+            onClick={() => setActiveWidget("calendar")}
+          >
             Calendar
-          </ColorModeText>
-          <ColorModeText colorMode={activeWidget} isActive={activeWidget === "clock"}>
+          </WidgetText>
+          <WidgetText isActive={activeWidget === "clock"} onClick={() => setActiveWidget("clock")}>
             Clock
-          </ColorModeText>
+          </WidgetText>
+          <WidgetText isActive={activeWidget === "music"} onClick={() => setActiveWidget("music")}>
+            Music
+          </WidgetText>
+          <WidgetText
+            isActive={activeWidget === "weather"}
+            onClick={() => setActiveWidget("weather")}
+          >
+            Weather
+          </WidgetText>
         </TextGroup>
-      </ColorModeButton>
+      </WidgetButton>
     </ToggleWrapper>
   )
 }
@@ -73,7 +86,7 @@ const ToggleWrapper = styled.div`
   align-items: center;
   justify-content: center;
   height: 40px;
-  width: 240px;
+  width: 340px;
 `
 
 const ColorModeButton = styled.button<{ colorMode: string }>`
@@ -130,6 +143,46 @@ const ScreenSlider = styled.div<{ activeScreen: "widget" | "image" }>`
   transition: transform 0.3s ease;
 `
 
+const WidgetButton = styled.button`
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background-color: var(--color-white);
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  cursor: pointer;
+`
+
+const WidgetSlider = styled.div<{ activeWidget: string }>`
+  position: absolute;
+  top: 4px;
+  height: calc(100% - 8px);
+  width: calc(25% - 4px);
+  border-radius: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-red);
+  transform: translateX(
+    ${(props) => {
+      switch (props.activeWidget) {
+        case "calendar":
+          return "1px"
+        case "clock":
+          return "calc(100% + 1px)"
+        case "music":
+          return "calc(200% + 1px)"
+        case "weather":
+          return "calc(300% + 1px)"
+        default:
+          return "1px"
+      }
+    }}
+  );
+  transition: transform 0.3s ease;
+`
+
 const TextGroup = styled.div`
   position: relative;
   height: 100%;
@@ -171,4 +224,17 @@ const ScreenText = styled.span<{ isActive: boolean }>`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+`
+
+const WidgetText = styled.span<{ isActive: boolean }>`
+  font-size: 14px;
+  font-weight: 750;
+  color: ${(props) => (props.isActive ? "var(--color-white)" : "var(--color-dark-gray)")};
+  transition: color 0.3s ease;
+  z-index: 1;
+  flex: 1;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
