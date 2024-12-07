@@ -1,10 +1,10 @@
 import styled from "@emotion/styled"
 
-type CalendarUIProp = {
+type ClockUIProp = {
   size: "L" | "M" | "S"
 } & React.HTMLAttributes<HTMLDivElement>
 
-export const ClockUI = ({ size, ...props }: CalendarUIProp) => {
+export const ClockUI = ({ size, ...props }: ClockUIProp) => {
   const dimensions = {
     L: { width: 210, height: 140 },
     M: { width: 150, height: 100 },
