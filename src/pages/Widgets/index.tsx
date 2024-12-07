@@ -54,7 +54,6 @@ const Container = styled.div`
   flex-direction: column;
   height: 100vh;
   padding-top: 300px;
-  background-color: #f2f2f2;
 `
 
 const CustomForm = styled.div`

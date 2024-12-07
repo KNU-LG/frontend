@@ -1,3 +1,10 @@
+// types.ts
+type CalendarProp = {
+  size: "L" | "M" | "S"
+  widgetKey: number
+}
+
+// Calendar.tsx
 import styled from "@emotion/styled"
 import { useState } from "react"
 import { useDeleteCalendar } from "../../api/calendar/useDeleteCalendar"
@@ -6,17 +13,21 @@ import { useEditMode } from "../../provider/EditModeContext"
 import { DragCon } from "./DragCon"
 import { Modal } from "./Modal"
 
-type CalendarProp = {
-  size: "L" | "M" | "S"
-  widgetKey: number
-}
 export const Calendar = ({ size, widgetKey }: CalendarProp) => {
   const { isEditMode } = useEditMode()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const { data } = useGetSchedule(widgetKey)
-
   const { mutate, status } = useDeleteCalendar(widgetKey)
+
+  const dimensions = {
+    L: { width: 280, height: 160 },
+    M: { width: 220, height: 130 },
+    S: { width: 160, height: 100 },
+  }
+
+  const widgetWidth = dimensions[size].width
+  const widgetHeight = dimensions[size].height
 
   const handleDelete = () => {
     setIsDeleting(true)
@@ -31,23 +42,13 @@ export const Calendar = ({ size, widgetKey }: CalendarProp) => {
 
   const formatDate = (isoDate: string) => {
     const date = new Date(isoDate)
-    return date.toLocaleString("en-US", {
-      year: "numeric",
+    return date.toLocaleString("ko-KR", {
       month: "short",
       day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
     })
   }
-
-  const dimensions = {
-    L: { width: 200, height: 130 },
-    M: { width: 150, height: 100 },
-    S: { width: 100, height: 80 },
-  }
-
-  const widgetWidth = dimensions[size].width
-  const widgetHeight = dimensions[size].height
 
   return (
     <>
@@ -57,23 +58,24 @@ export const Calendar = ({ size, widgetKey }: CalendarProp) => {
         widgetWidth={widgetWidth}
         widgetKey={widgetKey}
       >
-        <FadeWrapper isDeleting={isDeleting}>
+        <CalendarWrapper isDeleting={isDeleting}>
           {isEditMode && (
             <DeleteButton onClick={handleDelete} disabled={status === "pending"}>
               {status === "pending" ? "⏳" : "✖"}
             </DeleteButton>
           )}
-          <Wrapper onClick={() => !isEditMode && setIsModalOpen(true)}>
-            <ContentContainer>
-              {data.data.map((schedule) => (
-                <ScheduleItem key={schedule.id}>
-                  <ScheduleDate>{formatDate(schedule.date)}</ScheduleDate>
-                  <ScheduleTitle>{schedule.title}</ScheduleTitle>
-                </ScheduleItem>
+          <CalendarContainer onClick={() => !isEditMode && setIsModalOpen(true)}>
+            <EventList size={size}>
+              {data?.data?.map((schedule) => (
+                <EventItem key={schedule.id} size={size}>
+                  <EventDate>{formatDate(schedule.date)}</EventDate>
+                  <EventTitle>{schedule.title}</EventTitle>
+                  <EventContent>{schedule.content}</EventContent>
+                </EventItem>
               ))}
-            </ContentContainer>
-          </Wrapper>
-        </FadeWrapper>
+            </EventList>
+          </CalendarContainer>
+        </CalendarWrapper>
       </DragCon>
 
       <Modal
@@ -81,81 +83,106 @@ export const Calendar = ({ size, widgetKey }: CalendarProp) => {
         onClose={() => setIsModalOpen(false)}
         title="Calendar Details"
         widgetKey={widgetKey}
-        scheduleList={data.data}
+        scheduleList={data?.data}
       />
     </>
   )
 }
 
-const FadeWrapper = styled.div<{ isDeleting: boolean }>`
+const CalendarWrapper = styled.div<{ isDeleting: boolean }>`
   opacity: ${(props) => (props.isDeleting ? 0 : 1)};
   transition: opacity 0.5s ease-in-out;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  border-radius: 15px;
+  box-shadow:
+    5px 5px 15px rgba(0, 0, 0, 0.1),
+    -5px -5px 15px rgba(255, 255, 255, 0.8);
+  overflow: hidden;
 `
 
-const Wrapper = styled.div`
+const CalendarContainer = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   cursor: pointer;
-  height: 100%;
-  width: 100%;
-  padding: 8px;
-  border-radius: 4px;
 `
 
-const ContentContainer = styled.div`
-  height: 100%;
-  width: 100%;
+const EventList = styled.div<{ size: "L" | "M" | "S" }>`
+  flex: 1;
   overflow-y: auto;
+  padding: ${(props) => (props.size === "S" ? "5px" : "8px")};
 
   &::-webkit-scrollbar {
     width: 4px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #ddd;
+    background-color: rgba(0, 0, 0, 0.2);
     border-radius: 2px;
   }
+  width: 100%;
+  height: 100%;
 `
 
-const ScheduleItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 8px;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 4px;
-  height: auto;
-  border: 1px solid #ddd;
+const EventItem = styled.div<{ size: "L" | "M" | "S" }>`
+  padding: ${(props) => (props.size === "S" ? "0.3rem" : "0.5rem")};
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: transform 0.2s;
+  max-width: 100%;
+  max-height: 100%;
+
+  &:hover {
+    transform: translateX(2px);
+  }
+
   &:last-child {
     margin-bottom: 0;
   }
 `
 
-const ScheduleDate = styled.p`
-  font-size: 12px;
-  font-weight: 500;
+const EventDate = styled.div`
+  font-size: 15px;
+  color: #718096;
+  height: auto;
 `
 
-const ScheduleTitle = styled.h2`
-  font-size: 15px;
-  height: auto;
+const EventTitle = styled.div`
+  font-size: 20px;
+  font-weight: 600;
+  color: #2d3748;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  height: auto;
+  margin: 5px 0;
+`
+const EventContent = styled.div`
+  font-size: 15px;
+  font-weight: 500;
+  color: #2d3748;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: auto;
 `
 
 const DeleteButton = styled.button`
   position: absolute;
-  top: -10px;
-  right: -10px;
-  width: 20px;
-  height: 20px;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
   border: none;
-  background: red;
+  background: #ef4444;
   color: white;
   font-size: 14px;
   font-weight: bold;
   border-radius: 50%;
   cursor: pointer;
-  &:hover {
-    background: darkred;
-  }
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
 `
