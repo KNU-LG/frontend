@@ -2,14 +2,39 @@ import styled from "@emotion/styled"
 import { useNavigate } from "react-router-dom"
 import { WidgetToggleButton } from "../../components/Button/ToggleButton"
 
+import { useEffect, useRef, useState } from "react"
 import BackButton from "../../components/Button/BackButton"
 import { RouterPath } from "../../routes/path"
 import { Widget } from "../../types"
 import Calendar from "./components/Calendar"
 import Clock from "./components/Clock"
+import Music from "./components/Music"
+import Weather from "./components/Weather"
 
 const Widgets = () => {
   const navigate = useNavigate()
+  const [activeWidget, setActiveWidget] = useState<"calendar" | "clock" | "music" | "weather">(
+    "calendar",
+  )
+
+  const calendarRef = useRef<HTMLDivElement>(null)
+  const clockRef = useRef<HTMLDivElement>(null)
+  const musicRef = useRef<HTMLDivElement>(null)
+  const weatherRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    // 상태(activeWidget)가 변경될 때 해당 위치로 스크롤
+    const refs: Record<typeof activeWidget, React.RefObject<HTMLDivElement>> = {
+      calendar: calendarRef,
+      clock: clockRef,
+      music: musicRef,
+      weather: weatherRef,
+    }
+    const ref = refs[activeWidget]
+    if (ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
+  }, [activeWidget])
 
   const handleBack = () => {
     navigate(RouterPath.settings)
@@ -27,20 +52,34 @@ const Widgets = () => {
     <Container>
       <BackButton handleBack={handleBack} />
       <IconWrapper>
-        <WidgetToggleButton />
+        <WidgetToggleButton activeWidget={activeWidget} setActiveWidget={setActiveWidget} />
       </IconWrapper>
-      <CustomForm>
-        <WidgetTitle>Calendar</WidgetTitle>
-        <WidgetContainer>
-          <Calendar handleWidgetSelect={handleWidgetSelect} />
-        </WidgetContainer>
-      </CustomForm>
-      <CustomForm>
-        <WidgetTitle>Clock</WidgetTitle>
-        <WidgetContainer>
-          <Clock handleWidgetSelect={handleWidgetSelect} />
-        </WidgetContainer>
-      </CustomForm>
+      <CustomFormWrapper>
+        <CustomForm ref={calendarRef}>
+          <WidgetTitle>Calendar</WidgetTitle>
+          <WidgetContainer>
+            <Calendar handleWidgetSelect={handleWidgetSelect} />
+          </WidgetContainer>
+        </CustomForm>
+        <CustomForm ref={clockRef}>
+          <WidgetTitle>Clock</WidgetTitle>
+          <WidgetContainer>
+            <Clock handleWidgetSelect={handleWidgetSelect} />
+          </WidgetContainer>
+        </CustomForm>
+        <CustomForm ref={musicRef}>
+          <WidgetTitle>Music</WidgetTitle>
+          <WidgetContainer>
+            <Music />
+          </WidgetContainer>
+        </CustomForm>
+        <CustomForm ref={weatherRef}>
+          <WidgetTitle>Weather</WidgetTitle>
+          <WidgetContainer>
+            <Weather />
+          </WidgetContainer>
+        </CustomForm>
+      </CustomFormWrapper>
     </Container>
   )
 }
@@ -49,11 +88,21 @@ export default Widgets
 
 const Container = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
-  padding-top: 300px;
+  min-height: 100%;
+  width: 100%;
+  padding-top: 80px;
+  padding-bottom: 40px;
+`
+const CustomFormWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start; // changed from center
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  overflow-y: auto; // Added to enable scrolling
 `
 
 const CustomForm = styled.div`
@@ -72,9 +121,11 @@ const CustomForm = styled.div`
 const WidgetContainer = styled.div`
   width: 80%;
   height: 70%;
+  min-height: 200px;
   display: flex;
-  margin: 20px 0;
+  margin: 0 0 20px 0;
   border: 1px solid gray;
+  border-radius: 10px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
