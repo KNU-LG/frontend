@@ -1,4 +1,3 @@
-// types.ts
 interface DragConProps {
   name: string
   widgetHeight: number
@@ -12,7 +11,6 @@ interface WrapperProps {
   height: number
 }
 
-// DragCon.tsx
 import styled from "@emotion/styled"
 import React, { useEffect } from "react"
 import { animated, useSpring } from "react-spring"

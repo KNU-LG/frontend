@@ -36,7 +36,7 @@ export const PositionProvider = ({ children }: { children: ReactNode }) => {
       ...prev,
       [widgetId]: {
         position,
-        widgetName: widgetId.split("-")[1], // Extract widget name from ID if needed
+        widgetName: widgetId.split("-")[1],
       },
     }))
   }

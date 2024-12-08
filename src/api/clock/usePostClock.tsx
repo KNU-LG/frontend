@@ -8,7 +8,7 @@ import { fetchInstanceWithToken } from "../instance"
 
 const postClock = async (clockInfo: ClockSend): Promise<APIResponse<ClockResponse>> => {
   const response = await fetchInstanceWithToken().post("/widget/clock/add", clockInfo)
-  console.log("전송 데이터:", clockInfo) // 추가된 로그
+  console.log("전송 데이터:", clockInfo)
 
   return response.data
 }

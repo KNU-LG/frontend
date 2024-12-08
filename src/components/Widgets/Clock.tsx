@@ -1,10 +1,8 @@
-// types.ts
 type ClockProps = {
   size: "L" | "M" | "S"
   widgetKey: number
 }
 
-// Clock.tsx
 import styled from "@emotion/styled"
 import { useEffect, useState } from "react"
 import { useDeleteClock } from "../../api/clock/useDeleteClock"

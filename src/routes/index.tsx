@@ -47,15 +47,15 @@ const router = createHashRouter([
         element: <ProtectedRoute />,
         children: [
           {
-            path: RouterPath.myPage, // `/my-page`
+            path: RouterPath.myPage,
             element: <MyPage />,
           },
           {
-            path: RouterPath.widgetsSetting, // `/widgets-setting`
+            path: RouterPath.widgetsSetting,
             element: <WidgetsSetting />,
           },
           {
-            path: RouterPath.widgets, // `/widgets`
+            path: RouterPath.widgets,
             element: <Widgets />,
           },
         ],

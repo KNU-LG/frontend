@@ -23,7 +23,6 @@ const Widgets = () => {
   const weatherRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // 상태(activeWidget)가 변경될 때 해당 위치로 스크롤
     const refs: Record<typeof activeWidget, React.RefObject<HTMLDivElement>> = {
       calendar: calendarRef,
       clock: clockRef,
@@ -98,11 +97,11 @@ const Container = styled.div`
 `
 const CustomFormWrapper = styled.div`
   display: flex;
-  justify-content: flex-start; // changed from center
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   width: 100%;
-  overflow-y: auto; // Added to enable scrolling
+  overflow-y: auto;
 `
 
 const CustomForm = styled.div`

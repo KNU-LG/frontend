@@ -1,10 +1,8 @@
-// types.ts
 type CalendarProp = {
   size: "L" | "M" | "S"
   widgetKey: number
 }
 
-// Calendar.tsx
 import styled from "@emotion/styled"
 import { useState } from "react"
 import { useDeleteCalendar } from "../../api/calendar/useDeleteCalendar"
