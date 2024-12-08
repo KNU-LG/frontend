@@ -123,7 +123,7 @@ const WidgetContainer = styled.div`
   min-height: 200px;
   display: flex;
   margin: 0 0 20px 0;
-  border: 1px solid gray;
+  background: #f0f0f0;
   border-radius: 10px;
   flex-direction: column;
   justify-content: center;
