@@ -1,13 +1,13 @@
 import { useMutation } from "@tanstack/react-query"
 
-import { fetchInstance } from "./instance"
+import { fetchInstance } from "../instance"
 
-import { APIResponse, Login, UserResponse } from "../types"
+import { APIResponse, Login, UserResponse } from "../../types"
 
 import { isAxiosError } from "axios"
 
 import { useNavigate } from "react-router-dom"
-import { RouterPath } from "../routes/path"
+import { RouterPath } from "../../routes/path"
 
 const postLogin = async (userLogin: Login): Promise<APIResponse<UserResponse>> => {
   const response = await fetchInstance().post("/user/login", userLogin)
