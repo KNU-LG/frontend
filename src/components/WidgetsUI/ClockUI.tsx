@@ -35,7 +35,6 @@ const Wrapper = styled.div<{ widgetHeight: number; widgetWidth: number }>`
   border-radius: 15px;
   padding: 30px 10px;
   box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.1);
-  position: relative;
 `
 
 const TextContainer = styled.div`
