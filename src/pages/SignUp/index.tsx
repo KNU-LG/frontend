@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
-import { usePostRegister } from "../../api/usePostRegister"
+import { usePostRegister } from "../../api/user/usePostRegister"
 import CustomButton from "../../components/Button"
 import BackButton from "../../components/Button/BackButton"
 import { RouterPath } from "../../routes/path"
