@@ -19,12 +19,12 @@ export default HomePage
 
 const SettingIcon = styled(Settings)`
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 15px;
+  right: 15px;
   height: auto;
   margin: 0;
   padding: 0;
-  font-size: 50px;
+  font-size: 40px;
   line-height: 1;
   cursor: pointer;
 `
