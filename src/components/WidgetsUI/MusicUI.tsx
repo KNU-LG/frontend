@@ -1,4 +1,5 @@
 import styled from "@emotion/styled"
+import music from "../../assets/music.svg"
 
 type MusicUIProp = {
   size: "L" | "M" | "S"
@@ -6,19 +7,15 @@ type MusicUIProp = {
 
 export const MusicUI = ({ size, ...props }: MusicUIProp) => {
   const dimensions = {
-    L: { width: 210, height: 140 },
-    M: { width: 150, height: 100 },
-    S: { width: 120, height: 80 },
+    L: { width: 210, height: 120 },
+    M: { width: 170, height: 90 },
+    S: { width: 130, height: 70 },
   }
 
   const widgetWidth = dimensions[size].width
   const widgetHeight = dimensions[size].height
 
-  return (
-    <Wrapper widgetHeight={widgetHeight} widgetWidth={widgetWidth} {...props}>
-      <p>Music widget UI</p>
-    </Wrapper>
-  )
+  return <Wrapper widgetHeight={widgetHeight} widgetWidth={widgetWidth} {...props}></Wrapper>
 }
 
 const Wrapper = styled.div<{ widgetHeight: number; widgetWidth: number }>`
@@ -27,10 +24,9 @@ const Wrapper = styled.div<{ widgetHeight: number; widgetWidth: number }>`
   align-items: center;
   width: ${({ widgetWidth }) => widgetWidth}px;
   height: ${({ widgetHeight }) => widgetHeight}px;
-  background-color: #f0f0f0;
-  font-size: 20px;
-  border: 1px solid gray;
+  background-image: url(${music});
+  background-size: contain;
   border-radius: 15px;
-  padding: 5px;
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 `
