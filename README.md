@@ -104,11 +104,10 @@ The `Context API` is used to globally manage and toggle between dark and light m
 
 - Dark Mode
 ![alt text](/src/assets/docsImage/image-10.png)
-## How to Run
 
-### How to package frontend app
+## How to package frontend app
 
-#### Emulator
+### Emulator
 
 > npm install -g @webos-tools/cli
 
@@ -126,7 +125,7 @@ Package the built app into an IPK file using the webOS CLI tool.
 
 Install the app onto the webOS emulator using the above command. After installation, run the app through the emulator.
 
-#### Raspberry Pi
+### Raspberry Pi
 
 * ensure that you already has some ipk file from repository build command.
 
