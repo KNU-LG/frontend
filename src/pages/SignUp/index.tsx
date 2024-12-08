@@ -114,7 +114,7 @@ const CustomInput = styled.input`
   padding: 0 15px;
   border: none;
   border-radius: 10px;
-  background-color: #eaeaea;
+  background-color: var(--color-gray);
 `
 
 const ButtonWrapper = styled.div`

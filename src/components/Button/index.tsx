@@ -11,11 +11,11 @@ interface ButtonProps {
 
 const colorStyles = {
   red: css`
-    background-color: #a50034;
+    background-color: var(--color-red);
     color: white;
   `,
   white: css`
-    background-color: #f2f2f2;
+    background-color: var(--color-ivory);
     color: black;
   `,
   black: css`

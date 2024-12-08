@@ -18,6 +18,6 @@ export const SettingButton = styled.button`
   color: (--color-dark-gray);
   transition: all 0.3s;
   &:hover {
-    background-color: #eaeaea;
+    background-color: var(--color-gray);
   }
 `

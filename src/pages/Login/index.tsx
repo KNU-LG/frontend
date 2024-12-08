@@ -72,7 +72,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f2f2f2;
+  background-color: var(--color-ivory);
 `
 
 const CustomForm = styled.form`
@@ -101,7 +101,7 @@ const CustomInput = styled.input`
   padding: 0 15px;
   border: none;
   border-radius: 10px;
-  background-color: #eaeaea;
+  background-color: var(--color-gray);
 `
 
 const SignUpWrapper = styled.div`

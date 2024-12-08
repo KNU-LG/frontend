@@ -88,7 +88,7 @@ const ClockWrapper = styled.div<{ isDeleting: boolean }>`
   transition: opacity 0.5s ease-in-out;
   width: 100%;
   height: 100%;
-  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  background: linear-gradient(145deg, var(--color-white), #f0f0f0);
   border-radius: 15px;
   box-shadow:
     5px 5px 15px rgba(0, 0, 0, 0.1),

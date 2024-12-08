@@ -23,7 +23,7 @@ export const Wrapper = styled.div`
 `
 
 export const ModalContent = styled.div`
-  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  background: linear-gradient(145deg, var(--color-white), #f0f0f0);
   padding: 20px;
   border-radius: 8px;
   position: relative;

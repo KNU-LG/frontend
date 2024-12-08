@@ -94,7 +94,7 @@ const Avatar = styled.div`
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  background-color: #f2f2f2;
+  background-color: var(--color-ivory);
   margin-bottom: 20px;
 `
 
@@ -108,7 +108,7 @@ const UserInfo = styled.div`
 const Name = styled.h2`
   font-size: 18px;
   font-weight: bold;
-  color: #5a5a5a;
+  color: var(--color-dark-gray);
   margin-bottom: 25px;
 `
 
@@ -121,12 +121,12 @@ const UserDetail = styled.div`
 const Label = styled.span`
   font-size: 14px;
   font-weight: 600;
-  color: #5a5a5a;
+  color: var(--color-dark-gray);
 `
 
 const Value = styled.span`
   font-size: 14px;
-  color: #5a5a5a;
+  color: var(--color-dark-gray);
 `
 const ButtonWrapper = styled.div`
   display: flex;
