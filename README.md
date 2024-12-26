@@ -113,7 +113,7 @@ The `Context API` is used to globally manage and toggle between dark and light m
 
 Install the CLI tool using the above command.
 
-> npm build
+> npm run build
 
 Build the React app using the above command.
 
