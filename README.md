@@ -119,8 +119,8 @@ Install the project dependencies using the above command.
 
 > REACT_APP_BASE_URL = http://your-server-address
 
-Create a .env file in the root directory of the project, and Add the above line to the file.
-Replace http://your-server-address with the actual server URL.
+Create a `.env` file in the root directory of the project, and add the above line to the file.
+Replace `http://your-server-address` with the actual server URL.
 
 > npm run build
 
